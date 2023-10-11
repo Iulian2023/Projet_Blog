@@ -1,0 +1,37 @@
+{% extends 'themes/visitor/base_visitor.html.twig' %}
+
+{% block title %}Bienvenue sur mon blog !{% endblock %}
+{% block description %}Jusqu'au bout de monde c'est un site de type blog où je racontre toutes mes adventures dans mes voyages partout le monde{% endblock %}
+{% block keywords %}Accueil, Bienvenue, Welcome{% endblock %}
+
+{% block main %}
+    <div class="bg-secondary py-3">
+    <header class='container hero-image'>
+    <h1 class='text-center pt-3 display-5'>Bienvenue sur mon blog de voyage</h1>
+    <div class="container d-flex justify-content-center col-6">
+         {% for flash_error in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ flash_error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}  
+    </div>
+    <div class="row text-center mt-5">
+        <div class="col-lg-6 d-flex justify-content-center align-items-center flex-column order-1 order-lg-0">
+            <h5 class='fs-3 mt-5 mt-lg-0'>Lorem, ipsum dolor.</h5>
+            <p class='mt-3 fs-5'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas consequatur mollitia sapiente minima sed inventore laborum dolore reiciendis, pariatur earum ullam atque ratione tempora iusto porro dolorum, reprehenderit unde esse veniam repellendus id sint numquam.</p>
+        </div>
+        <div class="col-lg-6 order-0 order-lg-1">
+            <img src="{{asset('images/welcome_page/hero_image.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="">
+        </div>
+    </div>
+    </header>
+    </div>
+    <article class='text-center mt-5'>
+        <h2 class='text-primary fw-bold'>Les dernières aventures</h2>
+        <h2 class='text-secondary fw-bold'>sur mon voyage</h2>
+
+        <div class="d-flex flex-column flex-lg-row gap-3 justify-content-evenly align-items-center mt-5">
+        </div>
+    </article>
+{% endblock %}

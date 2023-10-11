@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}Inscrivez-vous - Jusqu'au bout de monde</title>
+            <meta name="description" content="Inscrivez-vous sur mon blog de voyage...">
+            <meta name="keywords" content="Registration, Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
+            
+
+            {% block stylesheets %}
+                {{ encore_entry_link_tags('app') }}
+            {% endblock %}
+
+            {% block javascripts %}
+                {{ encore_entry_script_tags('app') }}
+            {% endblock %}
+    </head>
+    <body class='bg-body-tertiary'>
+        <div class="d-flex justify-content-center">
+            <img src="{{asset('images/logo/logo-removebg-preview.png')}}" class='img-fluid' style='max-width: 130px' alt="">
+        </div>
+        <div class="border border-2 rounded-4 p-3 container text-center col-lg-4 shadow">
+                {{form_start(registrationForm)}}
+                <h3 class='text-start mb-3 mt-1 hand-write text-primary'>Inscrivez-vous</h3>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="registration_form_firstName" class="form-label">Prénom</label>
+                        <div class="text-danger text-start">
+                            {{form_errors(registrationForm.firstName)}}
+                        </div>
+                        {{form_widget(registrationForm.firstName, {'attr' : {'class' : 'form-control'}})}}
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="registration_form_lastName" class="form-label">Nom</label>
+                        <div class="text-danger text-start">
+                            {{form_errors(registrationForm.lastName)}}
+                        </div>
+                        {{form_widget(registrationForm.lastName, {'attr' : {'class' : 'form-control'}})}}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="registration_form_email" class="form-label">Adresse d'email</label>
+                    <div class="text-danger text-start">
+                        {{form_errors(registrationForm.email)}}
+                    </div>
+                    {{form_widget(registrationForm.email, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+                    <div class="mb-3">
+                            <label for="registration_form_password_first" class="form-label">Mot de passe</label>
+                            <div class="text-danger text-start">
+                                {{form_errors(registrationForm.password.first)}}
+                            </div>
+                            {{form_widget(registrationForm.password.first, {'attr' : {'class' : 'form-control'}})}}
+                    </div>
+                    <div class="mb-3">
+                            <label for="registration_form_password_second" class="form-label">Confirmation mot de passe</label>
+                            {{form_widget(registrationForm.password.second, {'attr' : {'class' : 'form-control'}})}}
+                    </div>
+                <div class="mb-3 d-grid">
+                    <input type="submit" value="S'inscrire" class="btn btn-primary" formnovalidate>
+                </div>  
+                <div>
+                    <hr>
+                    <p>En créant un compte, vous acceptez <a href="" class='text-decoration-none'>les conditions générales d'utilisation</a> de cet site. Veuillez consulter notre notice  <a href="" class='text-decoration-none'>Protection de vos Informations Personnelles</a> et notre notice  <a href="" class='text-decoration-none'>Cookies</a>.</p>
+                </div>
+                <hr>
+                <div class="d-flex flex-row justify-content-evenly">
+                    <small><a href="{{path('visitor.authentication.authenticate')}}" class='text-decoration-none'>Vous avez déjà un compte</a></small>
+                    <small><a href="{{path('visitor.welcome.index')}}" class='text-decoration-none'>Retour à l'accueil</a></small>
+                </div>
+                {{form_end(registrationForm)}}
+        </div>
+    </body>
+</html>

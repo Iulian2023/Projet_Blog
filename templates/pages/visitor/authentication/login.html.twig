@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Connection - Jusqu'au bout de monde !</title>
+        <meta name="keywords" content="Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+        <div class="d-flex justify-content-center mt-5">
+            <img src="{{asset('images/logo/logo-removebg-preview.png')}}" class='img-fluid' style='max-width: 130px' alt="">
+        </div>
+        <div class="container border border-2 rounded-4 col-4 mt-5">
+        <h3 class="text-start text-primary my-3 ">Connectez-vous</h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="authentication_form_email" class='form-label'>Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="authentication_form_email" class="form-control" autocomplete="email" required autofocus>
+            </div>
+            <div class="mb-3">
+                <label for="authentication_form_password" class='form-label'>Mot de passe</label>
+                <input type="password" name="password" id="authentication_form_password" class="form-control" autocomplete="current-password" required>
+            </div>
+            <div class="mb-3">
+                <label class="d-flex gap-1">
+                    <input type="checkbox" name="_remember_me" class="form-check-input"> Se souvenir de moi
+                </label>
+            </div>
+            <div class="mb-3 d-grid">
+                <input formnovalidate type="submit" value="Je me connecte" class="btn btn-primary w-100 shadow">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            </div>
+            <div class="d-flex justify-content-evenly">
+                <a href="{{path('visitor.registration.register')}}" class='text-decoration-none'>Vous n'avez pas un compte</a> 
+                <a href="{{path('visitor.authentication.forgot_password_request')}}" class='text-decoration-none'>Mot de passe oublié ?</a>
+            </div>
+            <hr>
+            <div class="mb-3 d-flex justify-content-center">
+                <small><a href="{{path('visitor.welcome.index')}}" class='text-decoration-none'>Retour à l'accueil</a></small>
+            </div>
+        </div>
+    </form>
+    </body>
+</html>
+

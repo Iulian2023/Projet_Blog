@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Changer mot de passe - Jusqu'au bout de monde</title>
+        <meta name="description" content="Change mot de passe, ou mot de passe oublié">
+        <meta name="keywords" content="Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        {% block main %}
+        {{ form_start(resetForm) }}
+        <div class="container-lg col-lg-6 border border-2 rounded-4 mt-5 p-5 shadow">
+            <div class="d-flex flex-column align-items-center mb-3">
+                <img class='img-fluid mx-auto' src="{{asset('images/logo/logo-removebg-preview.png')}}" style='max-width:220px' alt="">
+                <h3 class='text-secondary fw-bold'>Réinitialisez votre mot de passe</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label for="change_password_form_plainPassword_first" class="form-label">Nouveau mot de passe</label>
+                    {{form_widget(resetForm.plainPassword.first, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+                <div class="col-lg-6">
+                    <label for="change_password_form_plainPassword_second" class="form-label">Confirmation nouveau mot de passe</label>
+                    {{form_widget(resetForm.plainPassword.second, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+            </div>
+            <div class="d-grid mt-5">
+                <button class="btn btn-primary">Reset password</button>
+                <hr>
+                <a href="{{path('visitor.welcome.index')}}" class="text-decoration-none text-center">Annuler et retourner à l'accueil</a>
+            </div>
+        </div>
+        {{ form_end(resetForm) }}
+        {% endblock %}
+    </body>
+</html>

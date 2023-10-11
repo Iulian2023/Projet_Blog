@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Changer mot de passe - Jusqu'au bout de monde</title>
+        <meta name="description" content="Change mot de passe, ou mot de passe oublié">
+        <meta name="keywords" content="Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    {% block main %}
+        {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+        <div class="d-flex flex-column justify-content-center">
+            <img class='img-fluid mx-auto' src="{{asset('images/logo/logo-removebg-preview.png')}}" style='max-width:220px' alt="">
+            <h1 class='text-center my-3'>Changer mot de passe</h1>
+        </div>
+        <div class="container-lg border border-2 rounded-4 p-3 shadow mt-5 col-lg-5">
+        {{ form_start(requestForm) }}
+            <label for="reset_password_request_form_email" class='form-label'>Entrez votre adresse e-mail</label>
+            {{ form_widget(requestForm.email, {'attr' : {'class' : 'form-control'}}) }}
+            <div class='mt-2'>
+                <small>
+                    Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+                </small>
+            </div>
+            <div class="d-grid mt-3">
+                <button class="btn btn-primary">Envoyé mail changer mot de passe</button>
+            </div>
+            <hr>
+            <div class="text-center">
+                <a href="{{path('visitor.welcome.index')}}" class="text-decoration-none">Revenir à la page d'accueil</a>
+            </div>
+        {{ form_end(requestForm) }}
+        </div>
+    {% endblock %}
+        
+    </body>
+</html>
+
