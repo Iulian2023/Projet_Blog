@@ -1,0 +1,23 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block title %}Admin - Article : {{post.title}}{% endblock %}
+
+{% block description %}Admin - Article : {{post.title}}{% endblock %}
+
+{% block main %}
+    <h1 class="text-center display-5 my-3">{{post.title}}</h1>
+
+    <div class="container my-5">
+        <a href="{{path('admin.post.index')}}" class="text-decoration-none">Retour</a>
+
+        <div class="text-center">
+        {% if post.image %}
+            <img src="{{ vich_uploader_asset(post, 'imageFile')}}" alt="{{ post.title }}" class="img-fluid">
+        {% endif %}
+        </div>   
+
+        {{post.content|raw}}
+        <a href="{{path('admin.post.index')}}" class="text-decoration-none">Retour</a>
+    </div>
+{% endblock %}
+

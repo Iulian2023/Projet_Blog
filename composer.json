@@ -11,6 +11,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
         "gedmo/doctrine-extensions": "^3.13",
+        "liip/imagine-bundle": "^2.12",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.24",
         "stof/doctrine-extensions-bundle": "^1.8",
@@ -44,7 +45,9 @@
         "symfonycasts/reset-password-bundle": "^1.18",
         "symfonycasts/verify-email-bundle": "^1.14",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/intl-extra": "^3.7",
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^2.2"
     },
     "config": {
         "allow-plugins": {
@@ -95,6 +98,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.3.*",
         "symfony/css-selector": "6.3.*",

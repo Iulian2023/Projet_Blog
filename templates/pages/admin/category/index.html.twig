@@ -1,0 +1,72 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block main %}
+    <div class="container d-flex flex-column">
+        <h1 class='text-center mt-3'>Liste des categories</h1>
+        <div class="d-flex justify-content-center mb-3">
+            <button type="button" class='btn btn-secondary' data-bs-toggle="modal" data-bs-target="#ModalMakeCategory">Créer une categorie</button>
+
+            <!-- Modal Create Category -->
+            <div class="modal fade" id='ModalMakeCategory' tabindex="-1" aria-labelledby='ModalMakeCategory' aria-hidden='true'>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id='ModalMakeCategory'>Créer une categorie</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{form_start(form)}}
+                                <div class="mb-3">
+                                    <label for="category_form_name" class="form-label">Nom de categorie</label>
+                                    <small class="text-danger">
+                                        {{form_errors(form.name)}}
+                                    </small>
+                                    {{form_widget(form.name, {'attr' : {"class" : "form-control"}})}}
+                                </div>
+                        </div>
+                        <div class="modal-footer d-flex flex-row ">
+                            {# <button type="button" class="btn btn-secondary flex-fill" data-bs-dismiss="modal">Annuler</button> #}
+                            <input type="submit" value="Créer" formnovalidate class="btn btn-success flex-fill">
+                        </div>
+                    {{form_end(form)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover text-center">
+                <thead class='table-primary'>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Slung</th>
+                        <th scope="col">Date de création</th>
+                        <th scope="col">Date de modification</th>
+                        <th scope="col">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                    <tr scope='row'>
+                        <td>{{category.id}}</td>
+                        <td>{{category.name}}</td>
+                        <td>{{category.slug}}</td>
+                        <td>{{ category.createdAt|format_datetime('long', 'short', locale='fr') }}</td>
+                        <td>{{ category.updatedAt|format_datetime('long', 'short', locale='fr') }}</td>
+                        <td class='fs-5 '>
+                        <a href="{{path("admin.category.edit", {'id' : category.id})}}" onclick="" class='me-3'><i class="bi bi-pencil-square"></i></a>
+
+                        <a onclick="event.preventDefault();return confirm('Attention !! La suppression de cette catégorie est irréversible. ?') && document.querySelector('#form_delete_category_{{category.id}}').submit();" href="" class=''><i class="bi bi-trash"></i></a>
+                        
+                        <form action="{{path('admin.category.delete', {'id': category.id})}}" method="post" id="form_delete_category_{{category.id}}">
+                            <input type="hidden" name="csrf_token" value="{{csrf_token('delete_category_'~category.id)}}">
+                            <input type="hidden" name="_method", value="DELETE">
+                        </form> 
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

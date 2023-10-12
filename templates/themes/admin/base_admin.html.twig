@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %} - Jusqu'au bout de monde</title>
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="keywords" content="Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
+
+        {# No SEO for admin #}
+        <meta name="robots" content="noindex, nofollow">
+
+        {# Bootstrap Icons #}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+        {# fontAwsesome Icons #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        {% block webpack_encore_stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block webpack_encore_javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+
+        {# jQuery #}
+        {% block jQuery %}{% endblock %}
+
+        {# Datatables #}
+        {% block datatables %}{% endblock %}
+
+        {% block tinyMCE %}{% endblock %}
+
+        {# Select2 #}
+        {% block select2 %}{% endblock %}
+
+    </head>
+    <body class='body-layout'>
+        {% include "layouts/admin/sidenavbar.html.twig" %}
+        {% include "layouts/admin/navbar.html.twig" %}
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+        <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous"></script><script src="dashboard.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

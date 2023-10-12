@@ -1,0 +1,114 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block title %}Admin Modifier l'article{% endblock %}
+
+{% block description %}Admin Modifier l'article{% endblock %}
+
+{% block tinyMCE %}
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#post_form_content'
+        });
+    </script>
+{% endblock %}
+
+{% block jQuery %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block select2 %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-center my-3 display-5">Modifier l'article</h1>
+
+    <div class="container bg-primary-subtle rounded shadow py-5">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                {{form_start(form)}}
+                    <div class="mb-3">
+                        <label for="post_form_title" class="form-label">Titre</label>
+                        <div class="text-danger">
+                            {{form_errors(form.title)}}
+                        </div>
+                        {{form_widget(form.title, {'attr' : {'class' : 'form-control'}})}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="post_form_category" class="form-label">Catégories</label>
+                        <div class="text-danger">
+                            {{form_errors(form.category)}}
+                        </div>
+                    {{form_widget(form.category, {'attr' : {'class' : 'form-select'}})}}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-center d-flex flex-column justify-content-center align-items-center">
+                        {% if post.image %}
+                            <label for="">L'image actuelle</label>
+                            <img src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('admin_post_thumbnail') }}" alt="{{ post.title }}">
+                        {% else %}
+                            <p class="text-center pt-lg-4">Acune image existanté</p>
+                        {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="post_form_imageFile_file" class="form-label">Image</label>
+                                <div class="text-danger">
+                                    {{form_errors(form.imageFile)}}
+                                </div>
+                                {{form_widget(form.imageFile, {'attr' : {'class' : 'form-control mt-1 mb-3'}})}}
+                            </div>
+                    
+                        </div>
+                        <div class="col-md-4">
+                            <div class="preview-image-title"></div>
+                            <div class="preview-image-content"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="post_form_content" class="form-label">Contenu</label>
+                        <div class="text-danger">
+                            {{form_errors(form.content)}}
+                        </div>
+                    {{form_widget(form.content, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+                    </div>
+                    <div class="d-flex gap-3 flex-lg-row flex-column">
+                        <input formnovalidate type="submit" value="Modifier et sauvegarder" class="btn btn-primary shadow flex-fill">
+                        <a href="{{path('admin.post.index')}}" class="btn btn-info flex-fill">Annuler</a>
+                    </div>
+                {{form_end(form)}}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {  
+
+            $('#post_form_imageFile_file').on('change', function() {
+                let file = $(this).get(0).files[0];
+
+                if (file)
+                {
+                    let fileReader = new FileReader();
+
+                    fileReader.onload = function () {
+                        let p = `<p>Aperçu de l'image</p>`;
+                        let img = `<img src="${fileReader.result}" class="img-fluid" alt="Prévisualisation de l'image de l'article" >`;
+
+                        $('.preview-image-title').html(p);
+                        $('.preview-image-content').html(img);
+                    };
+                    fileReader.readAsDataURL(file);
+                }
+            });
+        });
+
+        var check_delete_img = document.getElementById('post_form_imageFile_delete');
+        check_delete_img.className += " form-check-input ms-3"
+
+    </script>
+{% endblock %}

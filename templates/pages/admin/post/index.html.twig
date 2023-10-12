@@ -1,0 +1,119 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+{% block title %}Liste des Articles{% endblock %}
+{% block description %}La page liste des articles permet ...{% endblock %}
+
+{% block jQuery %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block datatables %}
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
+{% endblock %}
+
+{% block main %}
+    <h1 class='text-center my-3'>Liste des Articles</h1>
+    <div class="d-flex justify-content-center">
+        <a href="{{path('admin.post.create')}}" class="btn btn-info">Créer des Article</a>
+    </div>
+
+    <div class="container mt-3">
+        <div class="table-responsive">
+            <table id='table' class="text-center table table-hover table-striped">
+                <thead class='table-primary'>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Slug</th>
+                        <th scope="col">Publié</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Contenu</th>
+                        <th scope="col">Crée le</th>
+                        <th scope="col">Modifié le</th>
+                        <th scope="col">Publié date</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                    <tr scope="row">
+                            <td>{{post.id}}</td>
+                            <td>{{post.title}}</td>
+                            <td>{{post.slung}}</td>
+                            <td>
+                            {% if post.isPublished %}
+                                <span>Publié le {{post.publishedAt|format_datetime('long', 'short', locale='fr')}}</span>
+                            {% else %}
+                                <p>Pas encore</p>
+                            {% endif %}
+                            <form action="{{ path('admin.post.publish', {'id' : post.id}) }}" method="POST">
+                                <div class="form-check form-switch d-flex justify-content-center align-items-center">
+                                    <input onclick="return confirm('Confirmer cette action ?')" onchange="this.form.submit()" {{post.isPublished ? 'checked' : ''}} class="form-check-input" type="checkbox" role="switch" id="switch_{{post.id}}">
+                                    <label class="form-check-label" for="switch_{{post.id}}"></label>
+                                    <input type="hidden" name="csrf_token" value="{{csrf_token('post_publish_'~post.id)}}">
+                                    <input type="hidden" name="_method" value='PUT'>
+                                </div>
+                            </form>
+                            </td>
+                            <td>
+                            {% if post.image %}
+                                <img src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('admin_post_thumbnail') }}" alt="{{ post.title }}">
+                            {% else %}
+                                <p>---</p>
+                            {% endif %}
+                            </td>
+                            <td><a href="{{path('admin.post.show', {'id' : post.id})}}"><i class='bi bi-file-text fs-3'></i></a></td>
+                            <td>{{post.createdAt|format_datetime('long', 'short', locale='fr')}}</td>
+                            <td>{{post.updatedAt|format_datetime('long', 'short', locale='fr')}}</td>
+                            {% if post.publishedAt is null %}
+                                <td>N'est pas Publié</th>
+                            {% else %}
+                            <td>{{post.publishedAt|format_datetime('long', 'short', locale='fr')}}</td>
+                            {% endif %}
+                            <td>
+                                <a href="{{path('admin.post.edit', {'id' : post.id})}}"><i class="bi bi-pencil-square text-secondary fs-3"></i></a>
+                                <a onclick="event.preventDefault();return confirm('Confirmer la suppression de cette article ?') && document.querySelector('#post_delete_form_{{post.id}}').submit();" href="#"><i class="bi bi-trash text-danger fs-3"></i></i></a>
+                                <form action="{{path('admin.post.delete', {'id' : post.id})}}" method="post" id="post_delete_form_{{post.id}}">
+                                    <input type="hidden" name="csrf_token" value="{{csrf_token("post_delete_"~post.id)}}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                </form>
+                            </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            let table = $('#table').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json',
+                },
+                order: [[ 8, 'asc' ]]
+            });
+
+            $('#check_all_post').on('click', function() {
+                if ( $(this).is(':checked', true) ) {
+                    $('.check-post').prop('checked', true)
+                }
+                else {
+                    $('.check-post').prop('checked', false)
+                }
+            });
+
+            $('.check-post').on('click', function(){
+                if ($('.check-post:checked').length == $('.check-post').length) {
+                    $('#check_all_post').prop('checked', true);
+                }
+                else{
+                    $('#check_all_post').prop('checked', false);
+                }
+            });
+        } );
+    </script>
+{% endblock %}

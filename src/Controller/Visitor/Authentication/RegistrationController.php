@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Visitor\Authentication;
 
 use App\Entity\User;
 use DateTimeImmutable;
@@ -30,6 +30,11 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'visitor.registration.register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+
+        if ($this->getUser()) {
+            return $this->redirectToRoute('visitor.welcome.index');
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
