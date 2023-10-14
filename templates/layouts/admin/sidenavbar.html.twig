@@ -1,6 +1,6 @@
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header border-bottom">
-    <h3 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">{{app.user.firstName}} {{app.user.lastName}} <span class="text-primary fw-bold">Super Admin</span></h3>
+    <h3 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">{{app.user.firstName}} {{app.user.lastName}} <a href="{{path('admin.dashboard.index')}}" >{% for roles in app.user.roles %} {% if "ROLE_SUPER_ADMIN" in roles %} Super {% elseif "ROLE_ADMIN" in roles %}Admin {% endif %} {% endfor %}</a></h3>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
@@ -10,7 +10,7 @@
                 <li class='nav-link fs-5'><a href="{{path('admin.post.index')}}" class='text-decoration-none'><i class="bi bi-file-post text-secondary fs-4"></i> Article</a></li>
                 <li class='nav-link fs-5'><a href="" class='text-decoration-none'><i class="bi bi-globe-europe-africa text-secondary fs-4"></i> Pays</a></li>
                 <li class='nav-link fs-5'><a href="" class='text-decoration-none'><i class="bi bi-tags text-secondary fs-4"></i> Tags</a></li>
-                <li class="nav-link fs-5"><a href="" class='text-decoration-none'><i class="bi bi-body-text text-secondary fs-4"></i> Changemnt des contenu</a></li>
+                <li class="nav-link fs-5"><a href="" class='text-decoration-none'><i class="bi bi-body-text text-secondary fs-4"></i> Changement des contenu</a></li>
             </ul>
             <hr>
         <h5>Gestion des utilisateurs</h5>
