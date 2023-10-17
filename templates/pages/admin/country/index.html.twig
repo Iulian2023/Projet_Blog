@@ -1,0 +1,90 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block title %}Ajouter un pays{% endblock %}
+
+{% block description %}Ajouter un pays ...{% endblock %}
+
+{% block jQuery %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block datatables %}
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
+{% endblock %}
+
+{% block main %}
+    <div class="container mx-auto mt-3 col-6">
+         {% for flash_error in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ flash_error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}  
+    </div>
+    <h1 class="text-center mt-3">Liste des pays</h1>
+
+    <div class="my-3 text-center">
+        <a href="{{path('admin.country.create')}}" class="btn btn-info">Ajouter un pays</a>
+    </div>
+
+
+    <div class="container table-responsive">
+        <table id='table' class="text-center table table-hover table-striped">
+            <thead class='table-primary'>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Pays</th>
+                    <th scope="col">Slung</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Ajoutée le</th>
+                    <th scope="col">Modifié le</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for country in countries %}
+                <tr scope="row">
+                    <td>{{country.id}}</td>
+                    <td>{{country.country|country_name('fr')}}</td>
+                    <td>{{country.country}}</td>
+                    <td>
+                        {% if country.image %}
+                            <img src="{{ vich_uploader_asset(country, 'imageFile') | imagine_filter('admin_post_thumbnail') }}" alt="{{ country.country|country_name('fr') }}">
+                        {% else %}
+                            <p>---</p>
+                        {% endif %}
+                    </td>
+                    <td>{{country.description}}</td>
+                    <td>{{country.createdAt|format_datetime('long', 'short', locale='fr')}}</td>
+                    <td>{{country.updatedAt|format_datetime('long', 'short', locale='fr')}}</td>
+                    <td>
+                        <a href="{{path('admin.country.edit', {'id' : country.id})}}"><i class="bi bi-pencil-square text-secondary fs-3"></i></a>
+                        <a onclick="event.preventDefault();return confirm('Confirmer la suppression de cette pays ?') && document.querySelector('#country_delete_form_{{country.id}}').submit();" href="#"><i class="bi bi-trash text-danger fs-3"></i></i></a>
+                        <form action="{{path('admin.country.delete', {'id' : country.id})}}" method="post" id="country_delete_form_{{country.id}}">
+                            <input type="hidden" name="csrf_token" value="{{csrf_token("country_delete_"~country.id)}}">
+                            <input type="hidden" name="_method" value="DELETE">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            let table = $('#table').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json',
+                },
+                order: [[ 6, 'asc' ]]
+            });
+
+        } );
+    </script>
+{% endblock %}

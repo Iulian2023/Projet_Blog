@@ -135,10 +135,7 @@ class PostController extends AbstractController
             return $this->redirectToRoute('admin.post.index');
         }
 
-        return $this->render("pages/admin/post/edit.html.twig", [
-            "form"  => $form->createView(),
-            "post"  => $post
-        ]);
+
     }
 
     #[Route('/admin/post/{id}/delete', name: 'admin.post.delete', methods: ['DELETE'])]

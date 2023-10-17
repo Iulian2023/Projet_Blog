@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\User;
 use App\Entity\Category;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
@@ -75,9 +77,13 @@ class Post
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $publishedAt = null;
 
+    #[ORM\ManyToMany(targetEntity: Countries::class, mappedBy: 'post')]
+    private Collection $countries;
+
     public function __construct()
     {
         $this->isPublished = false;
+        $this->countries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -233,6 +239,33 @@ class Post
     public function setPublishedAt(?\DateTimeImmutable $publishedAt): static
     {
         $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Countries>
+     */
+    public function getCountries(): Collection
+    {
+        return $this->countries;
+    }
+
+    public function addCountry(Countries $country): static
+    {
+        if (!$this->countries->contains($country)) {
+            $this->countries->add($country);
+            $country->addPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCountry(Countries $country): static
+    {
+        if ($this->countries->removeElement($country)) {
+            $country->removePost($this);
+        }
 
         return $this;
     }

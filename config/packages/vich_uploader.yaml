@@ -5,6 +5,15 @@ vich_uploader:
         type: attribute
 
     mappings:
+        country:
+            uri_prefix: /images/country
+            upload_destination: '%kernel.project_dir%/public/images/country'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
         posts:
             uri_prefix: /images/posts
             upload_destination: '%kernel.project_dir%/public/images/posts'
@@ -13,3 +22,5 @@ vich_uploader:
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
+
+        

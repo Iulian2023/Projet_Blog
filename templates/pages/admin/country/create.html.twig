@@ -1,0 +1,76 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block jQuery %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+{% block title %}Ajouter un Pays{% endblock %}
+
+{% block description %}Ajouter un pays{% endblock %}
+
+
+{% block main %}
+    <h1 class='text-center my-3'>Ajouter un pays</h1>
+    {{form_start(form)}}
+    <div class="container-lg col-lg-6">
+        <div class="mb-3">
+            <label for="countries_form_country" class="form-label">Pays</label>
+            <div class="text-danger">
+                {{form_errors(form.country)}}
+            </div>
+            {{form_widget(form.country, {'attr' : {'class' : 'form-select'}})}}
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <label for="countries_form_imageFile_file" class="form-label">Image</label>
+                    <div class="text-danger">
+                        {{form_errors(form.imageFile)}}
+                    </div>
+                {{form_widget(form.imageFile, {'attr' : {'class' : 'form-control '}})}}
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="preview-image-title ">
+
+                </div>
+                    <div class="preview-image-content">
+
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="post_form_description" class="form-label">Contenu</label>
+                <div class="text-danger">
+                    {{form_errors(form.description)}}
+                </div>
+                {{form_widget(form.description, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="d-grid">
+            <input formnovalidate type="submit" value="Sauvegarder" class="btn btn-primary">
+        </div>
+    </div>
+    {{form_end(form)}}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            
+            $('#countries_form_imageFile_file').on('change', function() {
+                let file = $(this).get(0).files[0];
+
+                if (file)
+                {
+                    let fileReader = new FileReader();
+
+                    fileReader.onload = function() {
+                        let p = `<p>Aperçu de l'image</p>`;
+                        let img = `<img src="${fileReader.result}" class="img-fluid w-50" alt="Prévisualisation de l'image de l'article" >`;
+
+                        $('.preview-image-title').html(p);
+                        $('.preview-image-content').html(img);
+                    };
+                    fileReader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+{% endblock %}
