@@ -1,0 +1,129 @@
+{% extends "themes/visitor/base_visitor.html.twig" %}
+ 
+{% block title %} - Le blog sur la santé - {{post.title}}{% endblock %}
+
+{% block FontAwesome %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block main %}
+    <main>
+        <div class="container my-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{path('visitor.blog.index')}}">Liste des articles</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{post.title|u.truncate('50', '...')}}</li>
+                </ol>
+            </nav>
+
+                {% if post.image %}
+                    <img src="{{ vich_uploader_asset(post, 'imageFile')}}" alt="{{post.title}}" class="img-fluid">
+                {% else %}
+                    
+                {% endif %}
+                    <h1 class="text-center my-3 display-5">{{post.title}}</h1>
+                    <p class="text-center text-dark-emphasis fs-4">Publié {{post.updatedAt|ago}} par Bout de monde</p>
+
+
+
+                <article class="container">
+                    {{post.content|raw}}
+
+{# 
+                    <a id="like-link" href="{{path('visitor.blog.post.like', {'id' : post.id, 'slug' : post.slug})}}" class="text-decoration-none">
+                        {% if app.user and post.isLikedBy(app.user) %}
+                            <span><i class="fa-solid fa-thumbs-up fs-3"></i></span> 
+                        {% else %}
+                            <span><i class="fa-regular fa-thumbs-up fs-3"></i></span> 
+                        {% endif %}
+                        <span id="total-like-container">{{post.postLikes|length}}</span>
+                        <span class="">J'aime</span> {# Post no liké #}
+                    {# </a> #}
+                </article>
+            </div>
+                {% if postRecent is not empty %}
+                    <div class="bg-info py-5 container-fluid">
+                        <h3 class="text-center text-primary">Voir les articles plus récentes</h3>
+                    <div class="d-flex flex-md-row flex-column justify-content-center gap-5 container-fluid">
+                        {% for arcticle in postRecent %}
+                        <div class="card">
+                            {% if arcticle.image %}
+                                <img src="{{ vich_uploader_asset(arcticle, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" alt="{{ arcticle.title }}" class="w-100 h-100 ">
+                            {% else %}
+                                <img src="{{asset("images/visitor/blog/pas_d_image_disponible.jpg")}}" class="w-100 h-100 rounded" alt={{arcticle.title }}>
+                            {% endif %}
+                            <div class="card-title text-center mt-3">
+                                {{arcticle.title}}
+                            </div>
+                            <div class="card-body text-center">
+                                <p class="card-text">{{arcticle.content|striptags|u.truncate(200, '...')|raw}}</p>
+                            </div>
+                            <div class="d-grid">
+                                <a href="{{path('visitor.blog.post.show', {'id': arcticle.id, 'slug': arcticle.slug})}}" class="btn btn-sm btn-primary">Lire la suite</a>
+                            </div>
+                        <div class="card-footer">
+                            <p class="card-text text-center"><small class="text-body-secondary">Publié {{post.updatedAt|ago}}</small></p>
+                        </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    </div>
+                    {% endif %}
+
+                {# {% if app.user %}
+                    <div class="my-5" id="create-comment-box">
+                        {{form_start(form, {'action': path('visitor.blog.post.show', {'id':post.id, 'slug':post.slug})~"#create-comment-box" } ) }}
+                            <div class="mb-3">
+                                <div class="text-danger">
+                                    {{form_errors(form.content)}}
+                                </div>
+                                {{form_widget(form.content, {'attr' : {'class' : 'form-control', 'placeholder' : 'Laissez un commentaire', 'rows': 4}})}}
+                            </div>
+                            <div class="d-grid col-6 mx-auto">
+                                <input formnovalidate type="submit" value="Commentez" class="btn btn-primary ">
+                            </div>
+                        {{form_end(form)}}
+                    </div>
+                {% else %}
+                    <div class="my-5 text-center bg-light-subtle border rounded shadow p-3">
+                        <h5>Vous n'est pas inscrire. Veuillez vous connectez pour laisser un commentaire.</h5>
+                        <div class="d-flex align-items-center justify-content-evenly flex-md-row flex-column">
+                            <a href="{{path('visitor.authentication.login')}}" class="btn btn-primary mt-2">Se connecter</a>
+                            <a href="{{path('visitor.registration.register')}}" class="btn btn-outline-primary mt-2">S'inscrire</a>
+                        </div>
+                    </div>
+                {% endif %} #}
+
+                {# <div class="my-3 ">
+                    <h2 class="mb-3 display-6 text-dark-emphasis">Commentaires</h2>
+                        {% set count = 0 %}
+                            {% if post.comments is not empty %}
+                            {% for comment in post.comments %}
+                                {% if comment.isActivated %}
+                                    {% set count = count + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                    {% if count <= 0 %}
+                        <p class="text-center mt-3">Aucun commentaire laissé pour cet article</p>
+                    {% else %}
+                        {% for comment in post.comments|reverse %}
+                        {% if comment.isActivated %}                
+                            <div class="shadow-lg bg-primary-subtle p-3 rounded border border-white-subtle border-2 mb-3">
+                                <h5>{{comment.user.firstName}} {{comment.user.lastName}}
+                                {{'ROLE_SUPER_ADMIN' in comment.user.roles ? "<span class='badge text-bg-light shadow'>Super Admin</span>" : ''}}
+                                {{'ROLE_ADMIN' in comment.user.roles ? "<span class='badge text-bg-warning shadow'>Admin</span>" : ''}}
+                                {{'ROLE_USER' in comment.user.roles ? "<span class='badge text-bg-success shadow'>Utilisateur</span>" : ''}}
+                                </h5>
+                                <p><small class=" text-dark-emphasis">Publié {{comment.createdAt|ago}} par {{comment.user.firstName}} {{comment.user.lastName}}</small></p>
+                                <hr>
+                                <p>{{comment.content}}</p>
+                            </div>
+                        {% endif %}
+                                <hr>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            </div> #}
+        </div>
+    </main>
+{% endblock %}

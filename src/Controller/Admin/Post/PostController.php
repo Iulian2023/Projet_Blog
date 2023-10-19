@@ -5,8 +5,10 @@ namespace App\Controller\Admin\Post;
 use App\Entity\Post;
 use DateTimeImmutable;
 use App\Form\PostFormType;
+use App\Repository\TagRepository;
 use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\CountriesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,12 +31,18 @@ class PostController extends AbstractController
         Request $request,
         EntityManagerInterface $em,
         CategoryRepository $categoryRepository,
+        TagRepository $tagRepository,
+        CountriesRepository $countriesRepository
     ) : Response
     {
         if (count($categoryRepository->findAll()) == 0) {
             $this->addFlash('warning', 'Acune catégorie. Vous devrez créer un afin du créer un article');
             return $this->redirectToRoute('admin.category.index');
         }
+
+        $tags = $tagRepository->findAll();
+
+        $countries = $countriesRepository->findAll();
 
         $post = new Post();
 
@@ -56,6 +64,8 @@ class PostController extends AbstractController
 
         return $this->render('pages/admin/post/create.html.twig', [
             "form" => $form->createView(),
+            "tags" => $tags,
+            "countries" => $countries
         ]);
     }
 
@@ -111,6 +121,7 @@ class PostController extends AbstractController
     #[Route('/admin/post/{id}/edit', name: 'admin.post.edit', methods:['GET', 'PUT'])]
     public function edit(Post $post, Request $request, EntityManagerInterface $em, CategoryRepository $categoryRepository) : Response
     {
+
         if (count($categoryRepository->findAll()) == 0) 
         {
             $this->addFlash("warning", "Acune catégorie. Vous devrez créer un afin du créer un article.");
@@ -135,7 +146,10 @@ class PostController extends AbstractController
             return $this->redirectToRoute('admin.post.index');
         }
 
-
+        return $this->render("pages/admin/post/edit.html.twig", [
+            "form"  => $form->createView(),
+            "post"  => $post
+        ]);
     }
 
     #[Route('/admin/post/{id}/delete', name: 'admin.post.delete', methods: ['DELETE'])]

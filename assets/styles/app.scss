@@ -7,6 +7,12 @@
 
 @import "./base/typography";
 
+@import "./abstract/classes";
+
+@import "./layout/header";
+
+@import "./components/background";
+
 @import "~bootstrap/scss/bootstrap";
 
 // @import "./components/button";

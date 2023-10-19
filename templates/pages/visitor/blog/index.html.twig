@@ -1,0 +1,110 @@
+{% extends "themes/visitor/base_visitor.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block description %}{% endblock %}
+
+{% block main %}
+<header class='=d-flex bg-info shadow' style='height: 200px'>
+    <h3 class='text-center display-5 pt-3 text-primary'>Mes Blogs</h3>
+            <div class="container pt-3">
+                <span class='text-md-start text-center'><h5 class="text-primary ">Filter par :</h5></span>
+            </div>
+    <div class="d-flex flex-warp justify-content-start-lg align-items-center justify-content-start gap-2 ms-4 ">
+            <div class=" dropdown-center">
+                <button type="button " class="btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tags
+                </button>
+                <ul class="dropdown-menu text-center">
+                {% if tags is empty %}
+                    <li><a class="dropdown-item disabled" href="#" aria-disabled="true">Acune tag</a></li>
+                {% else %}    
+                {% for tag in tags %}
+                    {% if tag.getPublishedPosts is not empty %}
+                        <li><a class="dropdown-item" href="{{path('visitor.blog.posts.filter_by_tag', {'slug' : tag.slug})}}">{{tag.name}} ({{tag.getPublishedPosts|length}})</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% endif %}
+                </ul>
+            </div>
+            <div class=" dropdown-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                    Countries
+                </button>
+                <ul class="dropdown-menu text-center">
+                {% if countries is empty %}
+                    <li><a class="dropdown-item disabled" href="#" aria-disabled="true">Acune pays</a></li>
+                {% else %}
+                    {% for country in countries %}
+                        {% if country.getPublishedPosts is not empty %}
+                            <li><a href="{{path('visitor.blog.posts.filter_by_country', {'slug' : country.slug})}}" class="dropdown-item">{{country.country|country_name('fr')}} ({{country.getPublishedPosts|length}})</a></li>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                </ul>
+            </div>
+            <div class=" dropdown-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                    Categories
+                </button>
+                <ul class="dropdown-menu text-center">
+                    {% if categories is empty %}
+                <li><a class="dropdown-item disabled" href="" aria-disabled="true" >Acune catégorie</a></li>
+                {% else %}
+                {% for category in categories %}
+                    {% if category.getPublishedPosts is not empty %}
+                        <li><a class="dropdown-item" href="{{path('visitor.blog.posts.filter_by_category', {'slug' : category.slug})}}">{{category.name}} ({{category.getPublishedPosts|length}})</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% endif %}
+                </ul>
+            </div>
+    </div>
+</header>
+        {% if posts is not empty %}
+            <div class="container d-flex flex-column align-items-center mt-5">
+            {% for post in posts %}
+                <div class="card mb-3" style="max-width: 740px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            {% if post.image %}
+                                <img src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" alt="{{ post.title }}" class="w-100 h-100 rounded">
+                            {% else %}
+                                <img src="{{asset("images/visitor/blog/pas_d_image_disponible.jpg")}}" class="w-100 h-100 rounded" alt={{post.title }}>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8 d-flex flex-column ">
+                        <div class="card-body">
+                            <h5 class="card-title text-center fs-4 fw-bold text-secondary">{{post.title}}</h5>
+                            <p class="card-text">{{post.content|striptags|u.truncate(150, '...')|raw}}</p>
+                            <div class="d-flex justify-content-center gap-3 align-items-center">
+                                {% for tag in post.tags %}
+                                        <div class="">
+                                            <a href="{{path('visitor.blog.posts.filter_by_tag', {'slug' : tag.slug})}}" class="text-decoration-none">
+                                            <span class="badge text-bg-secondary mb-3">{{tag.name}}</span>
+                                            </a>
+                                        </div>
+                                {% endfor %}
+                                {% for country in post.country %}
+                                        <div class="">
+                                            <a href="{{path('visitor.blog.posts.filter_by_country', {'slug' : country.slug})}}" class="text-decoration-none">
+                                                <span class="badge text-bg-info mb-3">{{country.country|country_name('fr')}}</span>
+                                            </a>
+                                        </div>  
+                                {% endfor %}
+                            </div>
+                            <div class="d-grid">
+                              <a href="{{path('visitor.blog.post.show', {'id': post.id, 'slug': post.slug})}}" class="btn btn-sm btn-primary">Lire la suite</a>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <p class="card-text text-center"><small class="text-body-secondary">Publié {{post.updatedAt|ago}}</small></p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+{% endblock %}

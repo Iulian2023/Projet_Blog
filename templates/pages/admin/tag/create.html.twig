@@ -1,0 +1,26 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block title %}Admin - Nouveau Tag{% endblock %}
+
+{% block description %}Admin - Nouveau Tag{% endblock %}
+
+{% block main %}
+    <h1 class="text-center my-3 display-5">Nouveau tag</h1>
+
+    <div class="container mt-5">
+        <div class="bg-primary-subtle col-md-6 mx-auto rounded shadow p-5">
+            {{form_start(form)}}
+                <div class="mb-3">
+                    <label for="tag_form_name" class="form-label">Nom</label>
+                    <div class="text-danger">
+                        {{form_errors(form.name)}}
+                    </div>
+                    {{form_widget(form.name, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+                <div class="mb-3">
+                    <input formnovalidate type="submit" class="btn btn-primary shadow w-100" value="Créer">
+                </div>
+            {{form_end(form)}}
+        </div>
+    </div>
+{% endblock %}

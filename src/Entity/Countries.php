@@ -28,7 +28,7 @@ class Countries
 
     #[Gedmo\Slug(fields: ['country'])]
     #[ORM\Column(length: 255)]
-    private ?string $slung = null;
+    private ?string $slug = null;
 
     #[Assert\File(
         maxSize: '4096k',
@@ -57,12 +57,13 @@ class Countries
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'countries')]
-    private Collection $post;
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'country')]
+    private Collection $posts;
+
 
     public function __construct()
     {
-        $this->post = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,30 +144,6 @@ class Countries
         return $this;
     }
 
-    /**
-     * @return Collection<int, Post>
-     */
-    public function getPost(): Collection
-    {
-        return $this->post;
-    }
-
-    public function addPost(Post $post): static
-    {
-        if (!$this->post->contains($post)) {
-            $this->post->add($post);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): static
-    {
-        $this->post->removeElement($post);
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -179,14 +156,59 @@ class Countries
         return $this;
     }
 
-    public function getSlung(): ?string
+    public function getSlug(): ?string
     {
-        return $this->slung;
+        return $this->slug;
     }
 
-    public function setSlung(string $slung): static
+    public function setSlug(string $slug): static
     {
-        $this->slung = $slung;
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPublishedPosts(): array
+    {
+        $allPosts = $this->getPosts()->toArray();
+        $publishedPosts = [];
+
+        foreach ($allPosts as $post) 
+        {
+            if ($post->isIsPublished() == true) 
+            {
+                $publishedPosts[] = $post;
+            }
+        }
+        return $publishedPosts;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): static
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->addCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): static
+    {
+        if ($this->posts->removeElement($post)) {
+            $post->removeCountry($this);
+        }
 
         return $this;
     }

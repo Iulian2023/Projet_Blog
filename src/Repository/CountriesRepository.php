@@ -21,6 +21,19 @@ class CountriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Countries::class);
     }
 
+    public function filterCountriesByPosts(int $country_id) : array
+    {
+        return $this->createQueryBuilder('i')
+                    ->innerJoin('i.countries', 'i')
+                    ->select('c')
+                    ->where('i.id = :id')
+                    ->setParameter('id',  $country_id)
+                    ->setParameter('val', true)
+                    ->orderBy('p.country', "ASC")
+                    ->getQuery()
+                    ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Countries[] Returns an array of Countries objects
 //     */

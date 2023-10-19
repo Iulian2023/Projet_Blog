@@ -21,6 +21,51 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function filterPostsByCategory(int $category_id) : array
+    {
+        return $this->createQueryBuilder('p')
+             ->innerJoin('p.category', 'c')
+             ->andWhere('p.isPublished = :val')
+             ->andWhere('p.category = :category_id')
+             ->setParameter('val', true)
+             ->setParameter('category_id', $category_id)
+             ->orderBy('p.publishedAt', "DESC")
+             ->getQuery()
+             ->getResult()
+        ;
+    }
+
+
+    public function filterPostsByTag(int $tag_id) : array
+    {
+        return $this->createQueryBuilder('p')
+                    ->join('p.tags', 't')
+                    ->select('p')
+                    ->where('t.id = :id')
+                    ->andWhere('p.isPublished = :val')
+                    ->setParameter('id',  $tag_id)
+                    ->setParameter('val', true)
+                    ->orderBy('p.publishedAt', "DESC")
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function filterPostsByCountries(int $country_id) : array
+    {
+        return $this->createQueryBuilder('p')
+                    ->join('p.country', 't')
+                    ->select('p')
+                    ->where('t.id = :id')
+                    ->andWhere('p.isPublished = :val')
+                    ->setParameter('id',  $country_id)
+                    ->setParameter('val', true)
+                    ->orderBy('p.publishedAt', "DESC")
+                    ->getQuery()
+                    ->getResult();
+    }
+
+
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */

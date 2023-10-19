@@ -45,7 +45,7 @@ class Post
 
     #[Gedmo\Slug(fields: ['title'])]
     #[ORM\Column(length: 255)]
-    private ?string $slung = null;
+    private ?string $slug = null;
 
     #[ORM\Column(options: ['default' => false])]
     private ?bool $isPublished = null;
@@ -77,13 +77,17 @@ class Post
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $publishedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Countries::class, mappedBy: 'post')]
-    private Collection $countries;
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
+    private Collection $tags;
+
+    #[ORM\ManyToMany(targetEntity: Countries::class, inversedBy: 'posts')]
+    private Collection $country;
 
     public function __construct()
     {
         $this->isPublished = false;
-        $this->countries = new ArrayCollection();
+        $this->tags = new ArrayCollection();
+        $this->country = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,14 +138,14 @@ class Post
         return $this;
     }
 
-    public function getSlung(): ?string
+    public function getSlug(): ?string
     {
-        return $this->slung;
+        return $this->slug;
     }
 
-    public function setSlung(string $slung): static
+    public function setSlug(string $slug): static
     {
-        $this->slung = $slung;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -242,20 +246,44 @@ class Post
 
         return $this;
     }
+    
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): static
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): static
+    {
+        $this->tags->removeElement($tag);
+
+        return $this;
+    }
 
     /**
      * @return Collection<int, Countries>
      */
-    public function getCountries(): Collection
+    public function getCountry(): Collection
     {
-        return $this->countries;
+        return $this->country;
     }
 
     public function addCountry(Countries $country): static
     {
-        if (!$this->countries->contains($country)) {
-            $this->countries->add($country);
-            $country->addPost($this);
+        if (!$this->country->contains($country)) {
+            $this->country->add($country);
         }
 
         return $this;
@@ -263,9 +291,7 @@ class Post
 
     public function removeCountry(Countries $country): static
     {
-        if ($this->countries->removeElement($country)) {
-            $country->removePost($this);
-        }
+        $this->country->removeElement($country);
 
         return $this;
     }

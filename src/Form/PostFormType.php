@@ -2,8 +2,12 @@
 
 namespace App\Form;
 
+
+use App\Entity\Tag;
 use App\Entity\Post;
 use App\Entity\Category;
+use Symfony\Component\Intl\Countries as pays;
+use App\Entity\Countries;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -26,6 +30,11 @@ class PostFormType extends AbstractType
                 // uses the Category.name property as the visible option string
                 'choice_label' => 'name',
             ])
+            ->add('tags', EntityType::class, [
+                'class' => Tag::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+            ])
             ->add('imageFile', VichImageType::class, [
             ])
             ->add('imageFile', VichImageType::class, [
@@ -39,6 +48,11 @@ class PostFormType extends AbstractType
                 'asset_helper' => true,
             ])
             ->add('content', TextareaType::class)
+            ->add('country', EntityType::class, [
+                'class' => Countries::class,
+                'choice_label' => 'country',
+                'multiple' => true,
+            ])
         ;
     }
 

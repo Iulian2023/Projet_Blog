@@ -43,6 +43,14 @@
                         </div>
                     {{form_widget(form.category, {'attr' : {'class' : 'form-select'}})}}
                     </div>
+                    <div class="mb-3">
+                        <label for="">Tags</label>
+                        {{form_widget(form.tags, {'attr' : {'class' : 'form-control'}})}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="">pays</label>
+                        {{form_widget(form.country, {'attr' : {'class' : 'form-control'}})}}
+                    </div>
                     <div class="row">
                         <div class="col-md-4 text-center d-flex flex-column justify-content-center align-items-center">
                         {% if post.image %}
@@ -87,6 +95,8 @@
 {% block javascripts %}
     <script>
         $(document).ready(function() {  
+            $('#post_form_tags').select2();
+            $('#post_form_country').select2();
 
             $('#post_form_imageFile_file').on('change', function() {
                 let file = $(this).get(0).files[0];

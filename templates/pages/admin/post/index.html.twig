@@ -13,12 +13,8 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class='text-center my-3'>Liste des Articles</h1>
-    <div class="d-flex justify-content-center">
-        <a href="{{path('admin.post.create')}}" class="btn btn-info">Créer des Article</a>
-    </div>
 
-    <div class="container d-flex justify-content-center col-6">
+    <div class="container col-8 mx-auto">
          {% for flash_error in app.flashes('success') %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ flash_error }}
@@ -26,6 +22,12 @@
             </div>
         {% endfor %}  
     </div>
+
+    <h1 class='text-center my-3'>Liste des Articles</h1>
+    <div class="d-flex justify-content-center">
+        <a href="{{path('admin.post.create')}}" class="btn btn-info">Créer des Article</a>
+    </div>
+
 
     <div class="container mt-3">
         <div class="table-responsive">
@@ -35,6 +37,8 @@
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Slug</th>
+                        <th scope="col">tags</th>
+                        <th scope="col">Pays</th>
                         <th scope="col">Publié</th>
                         <th scope="col">Image</th>
                         <th scope="col">Contenu</th>
@@ -49,7 +53,25 @@
                     <tr scope="row">
                             <td>{{post.id}}</td>
                             <td>{{post.title}}</td>
-                            <td>{{post.slung}}</td>
+                            <td>{{post.slug}}</td>
+                            <td>
+                            {% if post.tags is empty %}
+                                <p>---</p>
+                            {% else %}
+                                {% for tag in post.tags %}
+                                    <span class="badge text-bg-info">{{tag.name}}</span>
+                                {% endfor %}
+                            {% endif %}                        
+                            </td>
+                            <td>
+                            {% if post.country is empty %}
+                                <p>---</p>
+                            {% else %}
+                                {% for countries in post.country %}
+                                    <span class="badge text-bg-secondary">{{countries.country|country_name('fr')}}</span>
+                                {% endfor %}
+                            {% endif %}                        
+                            </td>
                             <td>
                             {% if post.isPublished %}
                                 <span>Publié le {{post.publishedAt|format_datetime('long', 'short', locale='fr')}}</span>

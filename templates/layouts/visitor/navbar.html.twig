@@ -1,3 +1,5 @@
+{% set curentPathInfo = app.request.pathInfo%}
+
 <nav class="navbar navbar-expand-lg border-bottom mb-0">
     <div class="container">
         <a class="navbar-brand" href="#"><img class='img-fluid logo-navbar-size' src="{{asset('images/logo/logo-removebg-preview.png')}}" alt=""></a>
@@ -7,16 +9,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav fs-5 mx-auto">
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+            <a class="nav-link {{curentPathInfo == path('visitor.welcome.index') ? 'nav-item-active' : ''}}"
+                {{curentPathInfo == path('visitor.welcome.index') ? "aria-current='page'"  : ''}} aria-current="page" href="{{path('visitor.welcome.index')}}">Accueil</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Qui suis-je</a>
+            <a class="nav-link" href="{{path('visitor.welcome.index')}}#about-me">Qui suis-je</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link {{curentPathInfo == path('visitor.blog.index') ? 'nav-item-active' : ''}}"
+                {{curentPathInfo == path('visitor.blog.index') ? "aria-current='page'"  : ''}} aria-current="page" href="{{path('visitor.blog.index')}}">Mes Blogs</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Blogs</a>
+            <a class="nav-link {{curentPathInfo == path('visitor.contact.index') ? 'nav-item-active' : ''}}"
+                {{curentPathInfo == path('visitor.contact.index') ? "aria-current='page'"  : ''}} aria-current="page" href="{{path('visitor.contact.index')}}">Contact</a>
             </li>
         </ul>
 
@@ -24,6 +29,9 @@
         {% if app.user %}
             {% if "ROLE_ADMIN" in app.user.roles %}
                 <a href="{{path('admin.dashboard.index')}}" class="btn btn-outline-primary"> {{app.user.firstName}} {{app.user.lastName}}</a>
+            {% endif %}
+            {% if "ROLE_USER" in app.user.roles %}
+                <a href="#" class="btn btn-outline-primary"> {{app.user.firstName}} {{app.user.lastName}}</a>
             {% endif %}
         {% else %}<a href="{{path('visitor.authentication.authenticate')}}" class="btn btn-outline-primary">Identifiez-vous</a>{% endif %}
         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
