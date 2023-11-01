@@ -2,23 +2,20 @@
 
 {% block main %}
     <div class="container d-flex flex-column">
-        <h1 class='text-center mt-3'>Modifier la categorie</h1>
-        
-
-            <!-- Modal Create Category -->
+        <h1 class='text-center mt-3'>Modifier la Categorie</h1>
             
-{{form_start(form)}}
-<div class="container col-6 border border-2 p-3 rounded-3 shadow">
-    <div class="mb-3">
-        <label for="category_form_name" class="form-label">Nom de categorie</label>
-        <small class="text-danger">
-            {{form_errors(form.name)}}
-        {{form_widget(form.name, {'attr' : {"class" : "form-control"}})}}
-        </small>
+    {{form_start(form)}}
+    <div class="container col-6 border border-2 p-3 rounded-3 shadow">
+        <div class="mb-3">
+            <label for="category_form_name" class="form-label">Nom de categorie</label>
+            <small class="text-danger">
+                {{form_errors(form.name)}}
+            </small>
+            {{form_widget(form.name, {'attr' : {"class" : "form-control"}})}}
+        </div>
+        <div class="mb-3 d-grid">
+            <input formnovalidate type="submit" value="Modifier" class="btn btn-primary text-info">
+        </div>
     </div>
-    <div class="mb-3 d-grid">
-        <input type="submit" value="Modifier" class="btn btn-success">
-    </div>
-</div>
-{{form_end(form)}}
+    {{form_end(form)}}
 {% endblock %}

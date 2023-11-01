@@ -1,0 +1,98 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block css %}
+<style>
+html, body{
+    height: 100%;
+    background-color: #FFF7DF;
+}
+
+</style>
+{% endblock %}
+
+{% block main %}
+    <div class="container mx-auto mt-3 col-6">
+         {% for flash_error in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ flash_error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}  
+    </div>
+    <div>
+        <h1 class="text-center display-5 my-5 text-primary">Statistiques de site</h1>
+
+        <div class="container gap-md-4 gap-3 justify-content-center d-flex flex-wrap">
+            <div class="card text-bg-light mb-3 shadow" style="width: 18rem;">
+                <a href="{{path('admin.category.index')}}" class="text-decoration-none text-info bg-primary fw-bold">
+                    <div class="card-header text-center">Les categories</div>
+                </a>                
+                <div class="card-body bg-info">
+                    <p class="card-text text-center">{{categories|length}}</p>
+                </div>
+            </div>
+            <div class="card text-bg-light mb-3 shadow" style="width: 18rem;">
+                <a href="{{path('admin.post.index')}}" class="text-decoration-none text-info bg-primary fw-bold">
+                    <div class="card-header text-center">Les articles</div>
+                </a>
+                <div class="card-body bg-info">
+                    <p class="card-text text-center">{{posts|length}}</p>
+                </div>
+            </div>
+            <div class="card text-bg-light mb-3 shadow" style="width: 18rem;">
+                <a href="{{path('admin.tag.index')}}" class="text-decoration-none text-info bg-primary fw-bold">
+                    <div class="card-header text-center">Les tags</div>
+                </a>
+                <div class="card-body bg-info">
+                    <p class="card-text text-center">{{tags|length}}</p>
+                </div>
+            </div>
+            <div class="card text-bg-light mb-3 shadow" style="width: 18rem;">
+                <a href="{{path('admin.contact.index')}}" class="text-decoration-none text-info bg-primary fw-bold">
+                    <div class="card-header text-center">Les contacts</div>
+                </a>
+                <div class="card-body bg-info">
+                    <p class="card-text text-center">{{contacts|length}}</p>
+                </div>
+            </div>
+            <div class="card text-bg-light mb-3 shadow" style="width: 18rem;">
+                <a href="{{path('admin.user.index')}}" class="text-decoration-none text-info bg-primary fw-bold">
+                    <div class="card-header text-center">Les Utilisateurs</div>
+                </a>
+                <div class="card-body bg-info">
+                    <p class="card-text text-center">{{users|length}}</p>
+                </div>
+            </div>
+            <div class="card text-bg-light mb-3 shadow" style="width: 18rem;">
+                <a href="{{path('admin.comment.index')}}" class="text-decoration-none text-info bg-primary fw-bold">
+                    <div class="card-header text-center">Les avis</div>
+                </a>
+                <div class="card-body bg-info">
+                    <p class="card-text text-center">{{comments|length}}</p>
+                </div>
+            </div>
+            <div class="card text-bg-light mb-3 shadow" style="width: 18rem;">
+                <a href="#" class="text-decoration-none text-info bg-primary fw-bold">
+                    <div class="card-header text-center">Les likés</div>
+                </a>
+                <div class="card-body bg-info">
+                    <p class="card-text text-center">{{postLikes|length}}</p>
+                </div>
+            </div>
+            <div class="card text-bg-light mb-3 shadow" style="width: 18rem;">
+                <a href="{{path('admin.country.list')}}" class="text-decoration-none text-info bg-primary fw-bold">
+                    <div class="card-header text-center">Les Pays</div>
+                </a>
+                <div class="card-body bg-info">
+                    <p class="card-text text-center">{{countries|length}}</p>
+                </div>
+            </div>
+        <div class="text-center">
+            <small class='text-primary'>Chaque card indque le numéro de contenu crées</small>
+        </div>
+        </div>
+        <div class="text-center">
+            <a href="{{path('admin.dashboard.index')}}" class='text-primary text-decoration-none'>Retour page principale</a>
+        </div>
+    </div>
+{% endblock %}

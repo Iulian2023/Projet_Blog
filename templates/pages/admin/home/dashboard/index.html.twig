@@ -1,2 +1,90 @@
 {% extends "themes/admin/base_admin.html.twig" %}
 
+{% block title %}Espace Admin{% endblock %}
+
+{% block description %}Espace Admin, Page d'accueil{% endblock %}
+
+{% block css %}
+<style>
+html, body{
+    height: 100%;
+    background-color: #FFF7DF;
+}
+
+</style>
+{% endblock %}
+
+{% block main %}
+
+    <div class="container mx-auto mt-3 col-6">
+         {% for flash_error in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ flash_error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}  
+    </div>
+    <div class="container-fluid" style="height: 100%">
+        <h1 class="text-center my-3 display-5 text-primary">Bienvenue dans l'espace Admin <span class="text-secondary"> {{app.user.firstName}} {{app.user.lastName}}</span></h1>
+
+        <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            <h5 class='mt-5 fs-3 text-primary'>Centre de commande :</h5>
+            <div class="row border border-2 border-primary rounded rounded-bottom-0 py-3 border-bottom-0 bg-info">
+            <h5 class="mb-3 text-center mb-3 text-primary fw-bold">Gestion de contenu</h5>  
+                <div class="col-lg-2">
+                    <a href="{{path('admin.category.index')}}" class='text-decoration-none fs-4'><i class="bi bi-bookmark-dash text-secondary fs-4"></i> Catégories</a>
+                </div>
+                <div class="col-lg-2 text-center">
+                    <a href="{{path('admin.post.index')}}" class='text-decoration-none fs-4'><i class="bi bi-file-post text-secondary fs-4"></i> Article</a>
+                </div>
+                <div class="col-lg-2 text-center">
+                    <a href="{{path('admin.country.list')}}" class='text-decoration-none fs-4'><i class="bi bi-globe-europe-africa text-secondary fs-4"></i> Pays</a>
+                </div>
+                <div class="col-lg-2 text-center">
+                    <a href="{{path('admin.tag.index')}}" class='text-decoration-none fs-4'><i class="bi bi-tags text-secondary fs-4"></i> Tags</a>
+                </div>
+                <div class="col-lg-2 text-center">
+                    <a class="text-decoration-none fs-4" href="{{path('admin.setting_index.edit', {'id' : 1})}}"><i class="bi bi-body-text text-secondary fs-4"></i> Parametres d'accueil</a>
+                </div>
+                <div class="col-lg-2 text-center">
+                    <a class="text-decoration-none fs-4"  href="{{path('admin.setting_contact.edit', {'id' : 1})}}"><i class="bi bi-body-text text-secondary fs-4"></i> Parametres de contact</a>
+                </div>
+            </div>
+            <div class="row py-3 border border-2 border-primary rounded rounded-top-0 border-top-0 bg-info">
+                <div class="col-lg-7">
+                    <h5 class="mb-3 text-center mb-3 text-primary fw-bold">Gestion des utilisateurs</h5>
+                    <div class="row">
+                        <div class="col-lg-4 text-center">
+                            <a href="{{path('admin.user.index')}}" class='text-decoration-none fs-4'><i class="bi bi-people text-secondary fs-4"></i> Utilisateurs</a>   
+
+
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <a href="{{path('admin.contact.index')}}" class='text-decoration-none fs-4'><i class="bi bi-person-lines-fill text-secondary fs-4"></i> Contacts</a>
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <a href="{{path('admin.comment.index')}}" class='text-decoration-none fs-4'><i class="bi bi-chat-left-text text-secondary fs-4"></i> Commantaire</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <h5 class="mb-3 text-center mb-3 text-primary fw-bold">Autre</h5>
+                    <div class="row">
+                        <div class="col-lg-6 text-center">
+                            <a href="{{path('admin.statistics.index')}}" class='text-decoration-none fs-4'><i class="bi bi-graph-up-arrow text-secondary fs-4"></i> Statistiques</a>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <a href="{{path("user.home.index")}}" class='text-decoration-none fs-4'><i class="bi bi-person-circle text-secondary fs-4"></i> Espace utilisateur</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

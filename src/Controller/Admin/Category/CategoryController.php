@@ -50,11 +50,11 @@ class CategoryController extends AbstractController
 
        if ($form->isSubmitted() && $form->isValid()) 
        {
-        $em->persist($category);
-        $em->flush();
+            $em->persist($category);
+            $em->flush();
 
-        $this->addFlash("success", "La catégorie a été modifier avec succès");
-        return $this->redirectToRoute("admin.category.index");
+            $this->addFlash("success", "La catégorie a été modifier avec succès");
+            return $this->redirectToRoute("admin.category.index");
        }
 
        return $this->render("pages/admin/category/edit.html.twig", [

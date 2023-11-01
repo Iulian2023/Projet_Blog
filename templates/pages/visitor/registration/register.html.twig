@@ -6,7 +6,15 @@
         <title>{% block title %}{% endblock %}Inscrivez-vous - Jusqu'au bout de monde</title>
             <meta name="description" content="Inscrivez-vous sur mon blog de voyage...">
             <meta name="keywords" content="Registration, Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
-            
+
+            {# favicon #}
+            <link rel="apple-touch-icon" sizes="180x180" href="{{asset('favicon/apple-touch-icon.png')}}">
+            <link rel="icon" type="image/png" sizes="32x32" href="{{asset("favicon/favicon-32x32.png")}}">
+            <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
+            <link rel="manifest" href="{{asset('favicon/site.webmanifest')}}">
+            <link rel="mask-icon" href="{{asset('favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+            <meta name="msapplication-TileColor" content="#da532c">
+            <meta name="theme-color" content="#ffffff">            
 
             {% block stylesheets %}
                 {{ encore_entry_link_tags('app') }}
@@ -62,7 +70,11 @@
                 </div>  
                 <div>
                     <hr>
-                    <p>En créant un compte, vous acceptez <a href="" class='text-decoration-none'>les conditions générales d'utilisation</a> de cet site. Veuillez consulter notre notice  <a href="" class='text-decoration-none'>Protection de vos Informations Personnelles</a> et notre notice  <a href="" class='text-decoration-none'>Cookies</a>.</p>
+                    <p>
+                        En créant un compte, vous acceptez <a href="" class='text-decoration-none' data-bs-toggle="modal" data-bs-target="#reglesGeneralesModal">les conditions générales d'utilisation</a> de cet site. Veuillez consulter notre notice  
+                        <a href="" class='text-decoration-none' data-bs-toggle="modal" data-bs-target="#ProtectionInformationModal">Protection de vos Informations Personnelles</a> et notre notice  
+                        <a href="" class='text-decoration-none' data-bs-toggle="modal" data-bs-target="#CookiesModal">Cookies</a>.
+                    </p>
                 </div>
                 <hr>
                 <div class="d-flex flex-row justify-content-evenly">
@@ -73,3 +85,73 @@
         </div>
     </body>
 </html>
+
+<!-- Modal -->
+<div class="modal fade" id="ProtectionInformationModal" tabindex="-1" aria-labelledby="ProtectionInformationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ProtectionInformationModalLabel">Protection de vos Informations Personnelles</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Nous prenons très au sérieux la protection de vos informations personnelles. Notre site web «Jusqu'au Bout du Monde» s'engage à respecter et à protéger la confidentialité et la sécurité de vos informations personnelles. Nous recueillons uniquement les informations personnelles nécessaires pour fournir nos services et les améliorer. Nous ne partagerons pas vos informations personnelles avec des tiers sans votre consentement. Nous prenons des mesures pour protéger vos informations personnelles contre l'utilisation, la modification, la divulgation ou l'accès non autorisés. Nous nous engageons à prendre des mesures pour assurer que vos informations personnelles sont traitées de manière sûre et conformément à la loi applicable en matière de protection des données. Vous pouvez demander l'accès à vos informations personnelles et les modifier si nécessaire. Si vous avez des questions ou des préoccupations concernant notre politique de confidentialité et de protection des données, veuillez nous contacter. 
+      </div>
+      <div class="modal-footer d-flex">
+        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="CookiesModal" tabindex="-1" aria-labelledby="CookiesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="CookiesModalLabel">Protection de vos Informations Personnelles</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Les règles relatives aux cookies de Jusqu'au Bout du Monde sont les suivantes : 
+        <br>
+        1. Nous utilisons des cookies sur notre site pour stocker des informations sur votre visite et votre comportement afin de fournir une meilleure expérience et de fournir des services personnalisés. 
+        <br>
+        2. Les cookies peuvent être utilisés pour collecter des informations telles que le type de navigateur, les préférences linguistiques et les sites visités. 
+        <br>
+        3. Nous ne partagerons pas vos informations personnelles avec des tiers sans votre consentement. 
+        <br>
+        4. Vous pouvez choisir de désactiver les cookies dans votre navigateur si vous le souhaitez. 
+        <br>
+        5. Nous suivons également les mesures de sécurité et de confidentialité les plus strictes pour protéger vos informations personnelles. 
+        <br>
+        6. Nous n'utilisons pas les cookies pour cibler la publicité. 
+        <br>
+        7. Nous n'utilisons pas les cookies pour suivre votre activité sur d'autres sites. 
+        <br>
+        8. Nous vous informons que vous pouvez vous opposer à l'utilisation de cookies ou les supprimer en modifiant les paramètres de votre navigateur. 
+        <br>
+        9. Si vous avez des questions ou des préoccupations concernant notre politique de cookies, veuillez nous contacter.
+      </div>
+      <div class="modal-footer d-flex">
+        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reglesGeneralesModal" tabindex="-1" aria-labelledby="reglesGeneralesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="reglesGeneralesModalLabel">Régles génerales</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bienvenue sur Jusqu'au Bout du Monde! Vous acceptez les conditions d'utilisation suivantes lorsque vous naviguez, postez et utilisez notre site. Nous nous réservons le droit de modifier ces conditions à tout moment et vous êtes tenu de les respecter. Nous nous réservons le droit de refuser le service à toute personne et de supprimer tout contenu à tout moment. Vous êtes responsable du contenu que vous publiez et de ses conséquences. Veuillez respecter toutes les lois et règlements applicables. Merci de votre visite et bonne navigation!
+      </div>
+      <div class="modal-footer d-flex">
+        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

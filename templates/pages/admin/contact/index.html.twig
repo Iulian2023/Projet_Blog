@@ -1,0 +1,112 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block title %}Liste des contacts{% endblock %}
+{% block description %}Liste des contacts{% endblock %}
+
+
+
+{% block main %}
+
+        <div class="container mx-auto mt-3 col-6">
+            {% for flash_error in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ flash_error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}  
+        </div>
+        <div class="">
+        <div class="container-fluid">
+            <h1 class="text-center my-3">Liste des Contactes</h1>
+        </div>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped" id="table">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Id</th>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Télephone</th>
+                            <th>Message</th>
+                            <th>Crée le</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class='table-secondary'>
+                        {% for contact in contacts %}
+                        <tr>
+                            <td>{{contact.id}}</td>
+                            <td>{{contact.firstName}}</td>
+                            <td>{{contact.lastName}}</td>
+                            <td>{{contact.email}}</td>
+                            <td>
+                                {% if contact.phone is not empty %}
+                                    {{contact.phone}}
+                                {% else %}
+                                    <p>---</p>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="#" class="text-decoration-none fs-5" data-bs-toggle="modal" data-bs-target="#modalMessage_{{contact.id}}" title='Voir le message'><i class="bi bi-chat-left-dots fs-3"></i></a>
+
+                                <div class="modal fade" id="modalMessage_{{contact.id}}" tabindex="-1" aria-labelledby="modalMessageLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="modalMessageLabel">Message de {{contact.createdAt|format_datetime('long', 'short', locale='fr')}}</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{contact.message}}
+                                        </div>
+                                        <div class="modal-footer d-flex">
+                                            <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Fermer</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{contact.createdAt|format_datetime('long', 'short', locale='fr')}}</td>
+                            <td>
+                                <a onclick="event.preventDefault(); confirm('Conirmer la suppression de contact de {{contact.firstName}} {{contact.lastName}} ?') && document.querySelector('#delete-contact-form-{{contact.id}}').submit();" title="Supprimer" href="#"><i class="bi bi-trash text-danger fs-3"></i></a>
+                                <form action="{{path('admin.contact.delete', {'id' : contact.id})}}" method="post" id="delete-contact-form-{{contact.id}}">
+                                    <input type="hidden" name="csrf_token" value="{{csrf_token('delete-contact-'~contact.id)}}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center">
+                <a href="{{path('admin.dashboard.index')}}" class='text-primary text-decoration-none'>Retour page principale</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block jQuery %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block datatables %}
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            let table = $('#table').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json',
+                },
+                order: [[ 6, 'ASC' ]]
+            });
+        });
+    </script>
+{% endblock %}

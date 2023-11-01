@@ -3,9 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Changer mot de passe - Jusqu'au bout de monde</title>
+        <title>Réinitialiser mot de passe - Jusqu'au bout de monde</title>
         <meta name="description" content="Change mot de passe, ou mot de passe oublié">
         <meta name="keywords" content="Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
+
+        {# Favicon #}
+        <link rel="apple-touch-icon" sizes="180x180" href="{{asset('favicon/apple-touch-icon.png')}}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{asset("favicon/favicon-32x32.png")}}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
+        <link rel="manifest" href="{{asset('favicon/site.webmanifest')}}">
+        <link rel="mask-icon" href="{{asset('favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -22,7 +31,7 @@
         {% endfor %}
         <div class="d-flex flex-column justify-content-center">
             <img class='img-fluid mx-auto' src="{{asset('images/logo/logo-removebg-preview.png')}}" style='max-width:220px' alt="">
-            <h1 class='text-center my-3'>Changer mot de passe</h1>
+            <h1 class='text-center my-3'>Réinitialiser mot de passe</h1>
         </div>
         <div class="container-lg border border-2 rounded-4 p-3 shadow mt-5 col-lg-5">
         {{ form_start(requestForm) }}
@@ -34,7 +43,7 @@
                 </small>
             </div>
             <div class="d-grid mt-3">
-                <button class="btn btn-primary">Envoyé mail changer mot de passe</button>
+                <button class="btn btn-primary">Envoyé mail réinitialiser mot de passe</button>
             </div>
             <hr>
             <div class="text-center">

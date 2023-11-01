@@ -64,7 +64,19 @@ class PostRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function filterPostByPhoto() : array
+    {
+        $qb = $this->createQueryBuilder('p');
+        
+        $qb->select('p')
+            ->where('p.isPublished = 1')
+            ->andWhere($qb->expr()->isNotNull("p.image"))
+            ->orderBy('p.publishedAt', "DESC")
+            ->select('p')
+            ->setMaxResults(3);
 
+        return $qb->getQuery()->getResult();
+    }
 
 //    /**
 //     * @return Post[] Returns an array of Post objects

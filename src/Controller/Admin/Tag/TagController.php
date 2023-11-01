@@ -14,18 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TagController extends AbstractController
 {
     #[Route('/admin/tag/list', name: 'admin.tag.index')]
-    public function index(TagRepository $tagRepository): Response
+    public function index(TagRepository $tagRepository, Request $request, EntityManagerInterface $em): Response
     {
         $tags = $tagRepository->findBy([], ['createdAt' => 'DESC']);
 
-        return $this->render('pages/admin/tag/index.html.twig', [
-            "tags" => $tags
-        ]);
-    }
-
-    #[Route('/admin/tag/create', name: 'admin.tag.create', methods:['GET', 'POST'])]
-    public function create(Request $request, EntityManagerInterface $em) : Response
-    {
         $tag = new Tag();
 
         $form = $this->createForm(TagFormType::class, $tag);
@@ -40,8 +32,9 @@ class TagController extends AbstractController
             return $this->redirectToRoute("admin.tag.index");
         }
 
-        return $this->render("pages/admin/tag/create.html.twig", [
-            "form" => $form->createView()
+        return $this->render('pages/admin/tag/index.html.twig', [
+            "form" => $form->createView(),
+            "tags" => $tags
         ]);
     }
 

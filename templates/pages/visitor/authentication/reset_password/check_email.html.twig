@@ -1,10 +1,37 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}E-mail de réinitialisation du mot de passe envoyé{% endblock %} - Jusqu'au bout de monde</title>
+<meta name="description" content="Change mot de passe, ou mot de passe oublié">
+<meta name="keywords" content="Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
 
-{% block title %}Password Reset Email Sent{% endblock %}
+        {# Favicon #}
+        <link rel="apple-touch-icon" sizes="180x180" href="{{asset('favicon/apple-touch-icon.png')}}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{asset("favicon/favicon-32x32.png")}}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
+        <link rel="manifest" href="{{asset('favicon/site.webmanifest')}}">
+        <link rel="mask-icon" href="{{asset('favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
 
 {% block body %}
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+
+    <div class="container text-center">
+    <a class="" href="{{path('visitor.welcome.index')}}"><img class='img-fluid w-100 h-100' style='max-width: 300px; max-height: 200px' src="{{asset('images/logo/logo-removebg-preview.png')}}" alt=""></a>
+    </div>
+    <div class="container border border-5 mt-5 rounded rounded-2 shadow-lg p-3">
+    <p class='text-center fs-5 mt-3'>
+        S'il existe un compte correspondant à votre adresse e-mail, un e-mail vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
+         Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
     </p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('visitor.authentication.forgot_password_request') }}">try again</a>.</p>
+    <p class='text-center fs-5'>Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou <a href="{{ path('visitor.authentication.forgot_password_request') }}">réessayer</a>.</p>
+    <a href="{{path('visitor.welcome.index')}}" class='fs-4 mt-3'>Retour au site</a>
+    </div>
 {% endblock %}

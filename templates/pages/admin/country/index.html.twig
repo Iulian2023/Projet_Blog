@@ -23,7 +23,7 @@
             </div>
         {% endfor %}  
     </div>
-    <h1 class="text-center mt-3">Liste des pays</h1>
+    <h1 class="text-center mt-3">Liste des Pays</h1>
 
     <div class="my-3 text-center">
         <a href="{{path('admin.country.create')}}" class="btn btn-info">Ajouter un pays</a>
@@ -57,7 +57,7 @@
                             <p>---</p>
                         {% endif %}
                     </td>
-                    <td>{{country.description}}</td>
+                    <td>{{country.description|u.truncate(200, '...')}}</td>
                     <td>{{country.createdAt|format_datetime('long', 'short', locale='fr')}}</td>
                     <td>{{country.updatedAt|format_datetime('long', 'short', locale='fr')}}</td>
                     <td>
@@ -72,6 +72,9 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="text-center">
+            <a href="{{path('admin.dashboard.index')}}" class='text-primary text-decoration-none'>Retour page principale</a>
+        </div>
     </div>
 {% endblock %}
 

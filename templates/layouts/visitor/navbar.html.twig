@@ -1,8 +1,8 @@
 {% set curentPathInfo = app.request.pathInfo%}
 
-<nav class="navbar navbar-expand-lg border-bottom mb-0">
+<nav class="navbar navbar-expand-lg bg-white border-bottom mb-0">
     <div class="container">
-        <a class="navbar-brand" href="#"><img class='img-fluid logo-navbar-size' src="{{asset('images/logo/logo-removebg-preview.png')}}" alt=""></a>
+        <a class="navbar-brand" href="{{path('visitor.welcome.index')}}"><img class='img-fluid logo-navbar-size' src="{{asset('images/logo/logo-removebg-preview.png')}}" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -13,15 +13,15 @@
                 {{curentPathInfo == path('visitor.welcome.index') ? "aria-current='page'"  : ''}} aria-current="page" href="{{path('visitor.welcome.index')}}">Accueil</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="{{path('visitor.welcome.index')}}#about-me">Qui suis-je</a>
+                <a class="nav-link" href="{{path('visitor.welcome.index')}}#about-me">Qui suis-je</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link {{curentPathInfo == path('visitor.blog.index') ? 'nav-item-active' : ''}}"
+                <a class="nav-link {{curentPathInfo == path('visitor.blog.index') ? 'nav-item-active' : ''}}"
                 {{curentPathInfo == path('visitor.blog.index') ? "aria-current='page'"  : ''}} aria-current="page" href="{{path('visitor.blog.index')}}">Mes Blogs</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link {{curentPathInfo == path('visitor.contact.index') ? 'nav-item-active' : ''}}"
-                {{curentPathInfo == path('visitor.contact.index') ? "aria-current='page'"  : ''}} aria-current="page" href="{{path('visitor.contact.index')}}">Contact</a>
+                <a class="nav-link {{curentPathInfo == path('visitor.contact.create') ? 'nav-item-active' : ''}}"
+                {{curentPathInfo == path('visitor.contact.create') ? "aria-current='page'"  : ''}} aria-current="page" href="{{path('visitor.contact.create')}}">Contact</a>
             </li>
         </ul>
 
@@ -29,9 +29,8 @@
         {% if app.user %}
             {% if "ROLE_ADMIN" in app.user.roles %}
                 <a href="{{path('admin.dashboard.index')}}" class="btn btn-outline-primary"> {{app.user.firstName}} {{app.user.lastName}}</a>
-            {% endif %}
-            {% if "ROLE_USER" in app.user.roles %}
-                <a href="#" class="btn btn-outline-primary"> {{app.user.firstName}} {{app.user.lastName}}</a>
+            {% else %}
+                <a href="{{path('user.home.index')}}" class="btn btn-outline-primary"> {{app.user.firstName}} {{app.user.lastName}}</a>
             {% endif %}
         {% else %}<a href="{{path('visitor.authentication.authenticate')}}" class="btn btn-outline-primary">Identifiez-vous</a>{% endif %}
         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,14 +41,35 @@
             {% if "ROLE_ADMIN" in app.user.roles %}
                 <li><a class="dropdown-item" href="{{path('admin.dashboard.index')}}">Espace Admin</a></li>
             {% endif %}
+                <li><a class="dropdown-item" href="{{path('user.home.index')}}">Espace Utilisateur</a></li>
                 <li><a class="dropdown-item" href="{{path('visitor.authentication.logout')}}">Deconnexion</a></li>
             {% else %}
             <li><a class="dropdown-item" href="{{path('visitor.authentication.authenticate')}}">Connexion</a></li>
             <li><a class="dropdown-item" href="{{path('visitor.registration.register')}}">Inscription</a></li>
             {% endif %}
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Régles génerales</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#reglesGeneralesModal">Régles génerales</a></li>
         </ul>
         </div>
     </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="reglesGeneralesModal" tabindex="-1" aria-labelledby="reglesGeneralesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="reglesGeneralesModalLabel">Régles génerales</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bienvenue sur Jusqu'au Bout du Monde! Vous acceptez les conditions d'utilisation suivantes lorsque vous naviguez, postez et utilisez notre site. Nous nous réservons le droit de modifier ces conditions à tout moment et vous êtes tenu de les respecter. Nous nous réservons le droit de refuser le service à toute personne et de supprimer tout contenu à tout moment. Vous êtes responsable du contenu que vous publiez et de ses conséquences. Veuillez respecter toutes les lois et règlements applicables. Merci de votre visite et bonne navigation!
+      </div>
+      <div class="modal-footer d-flex">
+        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Bienvenue sur Jusqu'au Bout du Monde! Vous acceptez les conditions d'utilisation suivantes lorsque vous naviguez, postez et utilisez notre site. Nous nous réservons le droit de modifier ces conditions à tout moment et vous êtes tenu de les respecter. Nous nous réservons le droit de refuser le service à toute personne et de supprimer tout contenu à tout moment. Vous êtes responsable du contenu que vous publiez et de ses conséquences. Veuillez respecter toutes les lois et règlements applicables. Merci de votre visite et bonne navigation! #}

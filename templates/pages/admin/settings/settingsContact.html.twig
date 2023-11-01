@@ -1,0 +1,51 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block main %}
+
+    <h1 class='text-center my-3'>Parametres des page d'accueil</h1>
+    <div class="container p-5 border rounded rounded-2 bg-info col-lg-6">
+        {{form_start(form)}}
+        <div class="mb-3">
+            <label for="settings_contact_form_email" class="form-label">Email</label>
+                <span class="text-danger">
+                    {{form_errors(form.email)}}
+                </span>
+            {{form_widget(form.email, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="mb-3">
+            <label for="settings_contact_form_phone" class="form-label">Numéro de téléphone</label>
+                <span class="text-danger">
+                    {{form_errors(form.phone)}}
+                </span>
+            {{form_widget(form.phone, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="mb-3">
+            <label for="settings_contact_form_tiktok" class="form-label">Link Tiktok</label>
+                <span class="text-danger">
+                    {{form_errors(form.tiktok)}}
+                </span>
+            {{form_widget(form.tiktok, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="mb-3">
+            <label for="settings_contact_form_instagram" class="form-label">Link Instagram</label>
+                <span class="text-danger">
+                    {{form_errors(form.instagram)}}
+                </span>            
+            {{form_widget(form.instagram, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="mb-3">
+            <label for="settings_contact_form_youtube" class="form-label">Link Youtube</label>
+                <span class="text-danger">
+                    {{form_errors(form.youtube)}}
+                </span>            
+            {{form_widget(form.youtube, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="mb-3 d-grid">
+            <input type="submit" value="Valider" class="btn btn-primary">
+        </div>
+        {{form_end(form)}}
+    </div>
+    <div class="text-center my-3">
+        <a href="{{path('admin.dashboard.index')}}" class='text-primary text-decoration-none'>Retour page principale</a>
+    </div>
+{% endblock %}

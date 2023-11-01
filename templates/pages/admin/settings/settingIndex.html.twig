@@ -1,0 +1,44 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block main %}
+
+    <h1 class='text-center my-3'>Parametres des page d'accueil</h1>
+    <div class="container p-5 border rounded rounded-2 bg-info col-lg-6">
+        {{form_start(form)}}
+        <div class="mb-3">
+            <label for="settings_index_form_titleHeader" class="form-label">Titre Header</label>
+                <span class="text-danger">
+                    {{form_errors(form.titleHeader)}}
+                </span>
+            {{form_widget(form.titleHeader, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="mb-3">
+            <label for="settings_index_form_textHeader" class="form-label">Text Header</label>
+                <span class="text-danger">
+                    {{form_errors(form.textHeader)}}
+                </span>
+            {{form_widget(form.textHeader, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Prémiere texte qui suis-je</label>
+                <span class="text-danger">
+                    {{form_errors(form.firstTextAboutMe)}}
+                </span>
+            {{form_widget(form.firstTextAboutMe, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Deuxieme texte qui suis-je</label>
+                <span class="text-danger">
+                    {{form_errors(form.secondTextAboutMe)}}
+                </span>            
+            {{form_widget(form.secondTextAboutMe, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
+        </div>
+        <div class="mb-3 d-grid">
+            <input type="submit" value="Valider" class="btn btn-primary">
+        </div>
+        {{form_end(form)}}
+    </div>
+    <div class="text-center my-3">
+        <a href="{{path('admin.dashboard.index')}}" class='text-primary text-decoration-none'>Retour page principale</a>
+    </div>
+{% endblock %}

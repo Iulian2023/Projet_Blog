@@ -1,0 +1,48 @@
+{% extends "themes/user/base_user.html.twig" %}
+
+{% block main %}
+    <div class="container mx-auto mt-3 col-6">
+         {% for flash_error in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ flash_error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}  
+    </div>
+    <div class="container justify-content-center h-100">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                        {{ message }}
+                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                    </div>
+                {% endfor %}
+                <div class="my-5">
+                    <div class="card" style="max-width: 250rem;">
+                        <div class="card-header bg-primary fs-5">
+                            Mon Profil
+                        </div>
+                        <div class="card-body bg-secondary-subtle">
+                            <p class="card-text"><strong>Prénom</strong> : {{app.user.firstName}}</p>
+                            <p class="card-text"><strong>Nom</strong> : {{app.user.lastName}}</p>
+                            <p class="card-text"><strong>Email</strong> : {{app.user.email}}</p>
+                            <hr>
+                            <div class="d-flex justify-content-evenly flex-lg-row flex-column gap-2">
+                                <a href="{{path('user.profile.edit')}}" class="btn btn-primary text-info flex-fill">Modifier le profil</a>
+                                <a href="{{path('user.profile.edit_password')}}" class="btn btn-info text-primary flex-fill">Modifier le mot de passe</a>
+                                    {% if "ROLE_SUPER_ADMIN" not in app.user.roles %}
+                                <a onclick="event.preventDefault(); confirm('Confirmez la suppression de votre compte, veuillez noter que cette procédure est irréversible!') && document.querySelector('#user_profile_delete').submit()" href="#" class="btn btn-danger flex-fill text-info">Suprimer le compte</a>
+                                <form action="{{path('user.profile.delete')}}" method="post" id="user_profile_delete">
+                                    <input type="hidden" name="csrf_token" value="{{csrf_token("user_profile_delete")}}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

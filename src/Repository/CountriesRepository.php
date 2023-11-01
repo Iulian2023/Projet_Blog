@@ -21,17 +21,32 @@ class CountriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Countries::class);
     }
 
-    public function filterCountriesByPosts(int $country_id) : array
+    // public function filterCountriesByPosts(int $country_id) : array
+    // {
+    //     return $this->createQueryBuilder('i')
+    //                 ->innerJoin('i.countries', 'i')
+    //                 ->select('c')
+    //                 ->where('i.id = :id')
+    //                 ->setParameter('id',  $country_id)
+    //                 ->setParameter('val', true)
+    //                 ->orderBy('p.country', "ASC")
+    //                 ->getQuery()
+    //                 ->getOneOrNullResult();
+    // }
+
+    public function filterCountriesByPosts()
     {
-        return $this->createQueryBuilder('i')
-                    ->innerJoin('i.countries', 'i')
-                    ->select('c')
-                    ->where('i.id = :id')
-                    ->setParameter('id',  $country_id)
-                    ->setParameter('val', true)
-                    ->orderBy('p.country', "ASC")
-                    ->getQuery()
-                    ->getOneOrNullResult();
+        $qb = $this->createQueryBuilder('c');
+        
+        $qb->innerJoin('c.posts', 'p')
+            ->where("p.isPublished = 1")
+            ->orderBy('p.publishedAt', "DESC")
+            ->distinct()
+            ->select('c')
+            ->setMaxResults(3);
+
+        return $qb->getQuery()->getResult();
+
     }
 
 //    /**

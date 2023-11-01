@@ -23,10 +23,10 @@
             </div>
         {% endfor %}  
     </div>
-    <h1 class="text-center mt-3">Liste des tags</h1>
+    <h1 class="text-center my-3">Liste des Tags</h1>
 
     <div class="my-3 text-center">
-        <a href="{{path('admin.tag.create')}}" class="btn btn-info">Ajouter un tag</a>
+        <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#CreeTagModal">Ajouter un tag</a>
     </div>
 
 
@@ -65,6 +65,36 @@
             </tbody>
         </table>
     </div>
+    <div class="text-center">
+        <a href="{{path('admin.dashboard.index')}}" class='text-primary text-decoration-none'>Retour page principale</a>
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="CreeTagModal" tabindex="-1" aria-labelledby="CreeTagModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="CreeTagModalLabel">Ajouter un tag</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{form_start(form)}}
+            <div class="mb-3">
+                <label for="tag_form_name" class="form-label">Nom</label>
+                <div class="text-danger">
+                    {{form_errors(form.name)}}
+                </div>
+                {{form_widget(form.name, {'attr' : {'class' : 'form-control'}})}}
+            </div>
+        </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-secondary flex-fill text-primary" data-bs-dismiss="modal">Fermer</button>
+            <input formnovalidate type="submit" class="btn btn-primary flex-fill text-info" value="Créer">
+      </div>
+        {{form_end(form)}}
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}

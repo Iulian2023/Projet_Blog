@@ -7,19 +7,43 @@
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="keywords" content="Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
 
-        {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+        {# Favicon #}
+        <link rel="apple-touch-icon" sizes="180x180" href="{{asset('favicon/apple-touch-icon.png')}}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{asset("favicon/favicon-32x32.png")}}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
+        <link rel="manifest" href="{{asset('favicon/site.webmanifest')}}">
+        <link rel="mask-icon" href="{{asset('favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        {# AOS Animation library css #}
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+        {% block webpack_encore_stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        {% block javascripts %}
+        {% block csssheet %}{% endblock %}
+
+        {% block webpack_encore_javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
+        {% block javascript %}{% endblock %}
     </head>
     <body class='body-layout'>
         {% include "layouts/visitor/navbar.html.twig" %}
         <main>
             {% block main %}{% endblock %}
         </main>
-        {# {% include "layout/visitor/footer.html.twig" %} #}
+        {% include "layouts/visitor/footer.html.twig" %}
+
+        {# AOS Animation library js #}
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        
+        {# AOS Animation library INITIALIZE AOS #}
+        <script>AOS.init();</script>
     </body>
 </html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %} - Jusqu'au bout de monde</title>
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="keywords" content="Jusqu'au bout de monde, voyage, blog, aventure, histoire, {% block keywords %}{% endblock %}"/>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+        {# favicon #}
+        <link rel="apple-touch-icon" sizes="180x180" href="{{asset('favicon/apple-touch-icon.png')}}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{asset("favicon/favicon-32x32.png")}}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
+        <link rel="manifest" href="{{asset('favicon/site.webmanifest')}}">
+        <link rel="mask-icon" href="{{asset('favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        {% block webpack_encore_stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block csssheet %}{% endblock %}
+
+        {% block webpack_encore_javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+
+        {% block javascript %}{% endblock %}
+    </head>
+    <body class='body-layout'>
+        {% include "layouts/user/navbar.html.twig" %}
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+        {# {% include "layout/visitor/footer.html.twig" %} #}
+
+    </body>
+</html>

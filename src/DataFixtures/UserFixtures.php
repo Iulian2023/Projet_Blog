@@ -29,11 +29,11 @@ class UserFixtures extends Fixture
     {
         $user = new User();
 
-        $passwordHased = $this->haser->hashPassword($user, "AzertyU1234@");
+        $passwordHased = $this->haser->hashPassword($user, "MontagneSoleil2023!");
 
-        $user->setFirstName('Iulian');
-        $user->setLastName('Rotaru');
-        $user->setEmail('rotarui@bvoyage.com');
+        $user->setFirstName('Jules');
+        $user->setLastName('Rousseau');
+        $user->setEmail('jules.rousseau@jusquauboutdumonde.com');
         $user->setRoles(["ROLE_SUPER_ADMIN", "ROLE_ADMIN", "ROLE_USER"]);
         $user->setIsVerified(true);
         $user->setPassword($passwordHased);

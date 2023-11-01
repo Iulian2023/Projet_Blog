@@ -1,0 +1,120 @@
+{% extends "themes/admin/base_admin.html.twig" %}
+
+{% block title %}Liste des comments{% endblock %}
+{% block description %}Liste des comments{% endblock %}
+
+
+
+{% block main %}
+        <div class="container mx-auto mt-3 col-6">
+            {% for flash_error in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ flash_error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}  
+        </div>
+
+        <div class="">
+        <div class="container-fluid">
+            <h1 class="text-center my-3">Liste des comments</h1>
+        </div>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped" id="table">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Id</th>
+                            <th>Utilisateur</th>
+                            <th>Email</th>
+                            <th>Article</th>
+                            <th>Activé</th>
+                            <th>Contenu</th>
+                            <th>Créé le</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody class='table-secondary'>
+                        {% for comment in comments %}
+                        <tr>
+                            <td>{{comment.id}}</td>
+                            <td>{{comment.user.firstName}} {{comment.user.lastName}}</td>
+                            <td>{{comment.user.email}}
+                            <td>{{comment.post.title}}</td>
+                            <td class="d-flex justify-content-center align-items-center flex-column">
+                                {% if comment.isActivated %}
+                                    <span>OUI OUI</span>
+                                {% else %}
+                                    <span>Nah</span>
+                                {% endif %}
+                                <form action="{{path('admin.comment.activate', {'id' : comment.id})}}" method='POST'>
+                                <div class="form-check form-switch">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <input type="hidden" name="csrf_token" value="{{csrf_token('comment_activate_'~comment.id)}}">
+                                        <input {{comment.isActivated ? 'checked' : ''}} onclick="this.form.submit();" class="form-check-input" type="checkbox" role="switch" id="switch_{{comment.id}}"
+                                        <label class="form-check-label" for="switch_{{comment.id}}"></label>
+                                    </div>
+                                </form>
+                            </td>
+                            <td><a href="#" title="lire" data-bs-toggle="modal" data-bs-target="#modal_comment_{{comment.id}}"><i class="bi bi-chat-left-dots fs-4"></i></td>
+                            
+                            <div class="modal fade" id="modal_comment_{{comment.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Commentaire de {{comment.user.firstName}} {{comment.user.lastName}}</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>L'article : {{comment.post.title}}</strong></p>
+                                        <p>{{comment.content}}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
+                            <td>{{comment.createdAt|format_datetime('long', 'short', locale='fr')}}</td>
+                            <td>
+                                <a onclick="event.preventDefault();return confirm('Confirmer la suppression de cette commentaire ?') && document.querySelector('#comment_delete_form_{{comment.id}}').submit();" href="#"><i class="bi bi-trash text-danger fs-3"></i></a>
+                                <form action="{{path('admin.comment.delete', {'id' : comment.id})}}" method="POST" id="comment_delete_form_{{comment.id}}">
+                                    <input type="hidden" name="csrf_token" value="{{csrf_token("comment_delete_"~comment.id)}}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center">
+                <a href="{{path('admin.dashboard.index')}}" class='text-primary text-decoration-none'>Retour page principale</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block jQuery %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block datatables %}
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            let table = $('#table').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json',
+                },
+                order: [[ 6, 'ASC' ]]
+            });
+        });
+    </script>
+{% endblock %}

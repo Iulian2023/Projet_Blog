@@ -7,8 +7,8 @@
 {% block main %}
     <div class="bg-secondary py-3">
     <header class='container hero-image '>
-    <h1 class='text-center pt-3 display-5 text-primary '>Bienvenue sur mon blog de voyage</h1>
-    <div class="container d-flex justify-content-center col-6">
+    <h1 class='text-center pt-3 display-5 text-primary' data-aos="fade-up" data-aos-duration="2000">Bienvenue sur mon blog de voyage</h1>
+    <div class="container mx-auto mt-3 col-6">
          {% for flash_error in app.flashes('success') %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ flash_error }}
@@ -18,42 +18,48 @@
     </div>
     <div class="row text-center mt-5">
         <div class="col-lg-6 d-flex justify-content-center align-items-center flex-column order-1 order-lg-0">
-            <h5 class='fs-3 mt-5 mt-lg-0 '>Lorem, ipsum dolor.</h5>
-            <p class='mt-3 fs-5 '>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas consequatur mollitia sapiente minima sed inventore laborum dolore reiciendis, pariatur earum ullam atque ratione tempora iusto porro dolorum, reprehenderit unde esse veniam repellendus id sint numquam.</p>
+            {% for setting in settings %}
+            <h5 class='fs-3 mt-5 mt-lg-0 ' data-aos="fade-right" data-aos-duration="2000">{{setting.titleHeader}}</h5>
+            <p class='mt-3 fs-5 ' data-aos="fade-right" data-aos-duration="2000">{{setting.textHeader}}</p>
+            {% endfor %}
         </div>
         <div class="col-lg-6 order-0 order-lg-1">
-            <img src="{{asset('images/welcome_page/hero_image.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="">
+            <div data-aos="flip-left" 
+                 data-aos-easing="ease-out-cubic"
+                 data-aos-duration="2000">
+                <img src="{{asset('images/welcome_page/hero_image.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="">
+            </div>
         </div>
     </div>
     </header>
     </div>
-    <article class='text-center mt-5'>
-        <h2 class='text-primary fw-bold'>Les dernières aventures</h2>
+    <article class='text-center pt-5 bg-primary' id="latest-posts">
+        <h2 class='text-info fw-bold'>Les dernières aventures</h2>
         <h2 class='text-secondary fw-bold'>sur mon voyage</h2>
-            <div class="container-fluid mt-5">
-                <div class="d-flex flex-lg-row flex-column justify-content-evenly">
                 {% if posts is not empty %}
-                    <div class="d-flex flex-md-row flex-column justify-content-center gap-5 container-fluid mb-5">
+                    <div class="container d-flex gap-3 justify-content-evenly mt-5 flex-lg-row flex-column" >
                         {% for post in posts %}
-                        <div class="card">
-                            {% if post.image %}
-                                <img src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" alt="{{ post.title }}" class="rounded-2 rounded-bottom-0 w-100 h-100 ">
-                            {% else %}
-                                <img src="{{asset("images/visitor/blog/pas_d_image_disponible.jpg")}}" class="w-100 h-100 rounded" alt={{post.title }}>
-                            {% endif %}
-                            <div class="card-title text-center mt-3">
-                                {{post.title}}
+                            <div class="col-lg-4" >
+                                <div class="card bg-secondary" data-aos="zoom" data-aos-duration="2000" style='max-width: 780px'>
+                                    {% if post.image %}
+                                        <img src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" alt="{{ post.title }}" style='max-height: 490px' class="rounded-2 rounded-bottom-0 w-100 h-100 ">
+                                    {% else %}
+                                        <img src="{{asset("images/welcome_page/pas_d_image_disponible.jpg")}}" class="w-100 h-100 rounded" alt={{post.title }}>
+                                    {% endif %}
+                                    <div class="card-title text-center mt-3">
+                                        {{post.title|striptags|u.truncate(50, '...')|raw}}
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <p class="card-text">{{post.content|striptags|u.truncate(200, '...')|raw}}</p>
+                                    </div>
+                                    <div class="d-grid container mb-3">
+                                        <a href="{{path('visitor.blog.post.show', {'id': post.id, 'slug': post.slug})}}" class="btn btn-sm btn-primary">Lire la suite</a>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="card-text text-center"><small class="text-body-secondary">Publié {{post.updatedAt|ago}}</small></p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body text-center">
-                                <p class="card-text">{{post.content|striptags|u.truncate(200, '...')|raw}}</p>
-                            </div>
-                            <div class="d-grid container mb-3">
-                                <a href="{{path('visitor.blog.post.show', {'id': post.id, 'slug': post.slug})}}" class="btn btn-sm btn-primary">Lire la suite</a>
-                            </div>
-                        <div class="card-footer">
-                            <p class="card-text text-center"><small class="text-body-secondary">Publié {{post.updatedAt|ago}}</small></p>
-                        </div>
-                        </div>
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -61,22 +67,55 @@
         <div class="d-flex flex-column flex-lg-row gap-3 justify-content-evenly align-items-center mt-5">
         </div>
     </article>
-    <section class='bg-primary py-3 container-fluid' id='about-me'>
+    <section class='bg-dark py-3 container-fluid pb-4' id='about-me'>
     <h2 class='text-center my-3 display-5 text-info'>Qui suis Je ?</h2>
-    <div class="row mt-5">
-        <div class="col-lg-6"></div>
-        <div class="col-lg-6">
-            <p class='text-secondary'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit atque ea delectus!</p>
+    {% for setting in settings %}
+    <div class="container">
+        <div class="row mt-5" data-aos="fade-up" data-aos-duration="2000">
+            <div class="col-lg-6">
+                <img src="{{asset('images/welcome_page/about_me_1.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="">
+            </div>
+            <div class="col-lg-6 align-self-center my-3">
+                <p class='text-secondary text-lg-start text-center'>{{setting.firstTextAboutMe}}</p>
+            </div>
+        </div>
+        <div class="row my-lg-3" data-aos="fade-up" data-aos-duration="2000">
+            <div class="col-lg-6 align-self-center order-1 order-lg-0">
+            <p class='text-info text-lg-start text-center'>{{setting.secondTextAboutMe}}</p>
+            </div>
+            <div class="col-lg-6 order-0 order-lg-1 my-3">
+                <img src="{{asset('images/welcome_page/about_me_2.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="">
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-        <p class='text-info'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit esse veritatis quibusdam nam nesciunt aperiam, ea excepturi quidem nobis corporis!</p></div>
-        <div class="col-lg-6"></div>
-    </div>
+    {% endfor %}
     </section>
 
-    <section class='bg-info py-3 container-fluid'>
-        <h2 class='text-center my-3 display-5 text-primary'>Mes déstination préferes</h2>
+    <section class='bg-secondary py-3 container-fluid' id="latest-destination">
+        <h2 class='text-center my-3 display-5 text-primary'>Mes déstination recentés</h2>
+            {% if countries is not empty %}
+                <div class="container d-flex gap-3 justify-content-evenly mt-5 flex-lg-row flex-column">
+                    {% for country in countries %}
+                    <div class="col-lg-4" >
+                        <div class="card bg-primary" data-aos="zoom" data-aos-duration="2000" style='max-width: 780px'>
+                            {% if country.image %}
+                                <img src="{{ vich_uploader_asset(country, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" style='max-height: 620px' alt="{{country.country}}" class="rounded-2 rounded-bottom-0 w-100 h-100 ">
+                            {% else %}
+                                <img src="{{asset("images/visitor/blog/pas_d_image_disponible.jpg")}}"  class="w-100 h-100 rounded" style='max-height: 620px' alt={{country.country }}>
+                            {% endif %}
+                            <div class="card-title text-center mt-3 text-info display-6">
+                                {{country.country|country_name('fr')|striptags|u.truncate(25, '...')|raw}}
+                            </div>
+                            <div class="card-body text-center text-info" style='min-height: 150px'>
+                                <p class="card-text">{{country.description|striptags|u.truncate(200, '...')|raw}}</p>
+                            </div>
+                            <div class="d-grid container mb-3">
+                                <a href="{{path('visitor.blog.posts.filter_by_country', {'slug': country.slug})}}" class="btn btn-sm btn-info">Voir les articles rélie à {{country.country|country_name('fr')|striptags|u.truncate(25, '...')|raw}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>            
+            {% endif %}
     </section>
 {% endblock %}

@@ -1,0 +1,47 @@
+<footer class="footer-bg container-fluid pt-3">
+    <div class="justify-content-evenly">
+    <div class="row">
+        <div class="col-lg text-center">
+            <img class='img-fluid logo-navbar-size' style="max-width: 80px" src="{{asset('images/logo/logo-minimize.png')}}" alt="w-100 h-100 img-fluid">
+            <span class='text-secondary'>&copy;</span>
+        </div>
+
+        <div class="col-lg mt-3 text-center">
+            <h3 class="text-center text-secondary">Navigation</h3>
+            <div class="row">
+                <div class="col-6">
+            <h5><a class="text-decoration-none text-info" href="{{path('visitor.welcome.index')}}">Accueil</a></h5>
+            <h5><a class="text-decoration-none text-info" href="{{path('visitor.blog.index')}}">Mes blogs</a></h5>
+                </div>
+                <div class="col-6">
+            <h5><a class="text-decoration-none text-info" href="{{path('visitor.welcome.index')}}#about-me">Qui suis-je</a></h5>
+            <h5><a class="text-decoration-none text-info" href="{{path('visitor.contact.create')}}">Contact</a></h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg mt-3 text-center">
+            <h3 class="text-center text-secondary">Voir</h3>
+            <h5><a class="text-decoration-none text-info" href="{{path('visitor.welcome.index')}}#latest-posts">Les dérnier articles</a></h5>
+            <h5><a class="text-decoration-none text-info" href="{{path('visitor.welcome.index')}}#latest-destination">Les dérnier destination</a></h5>
+        </div>
+        <div class="col-lg mt-3 text-center">
+            <h3 class="text-center text-secondary">Suivre moi sur</h3>
+            <div class="d-flex justify-content-evenly">
+                <h1><a title='tiktok' class="text-decoration-none text-info" href="{{setting.tiktok}}"><i class="bi bi-tiktok text-info"></i></a></h1>
+                <h1><a title='youtube' class="text-decoration-none text-info" href="{{setting.youtube}}"><i class="bi bi-youtube text-info"></i></a></h1>
+                <h1><a title='instagram' class="text-decoration-none text-info" href="{{setting.instagram}}"><i class="bi bi-instagram text-info"></i></a></h1>
+            </div>
+        </div>
+        <div class="col-lg mt-3 text-center">
+            <h3 class="text-center text-secondary">Lisez ces articles</h3>
+            <div class="d-flex flex-wrap gap-2 justify-content-center mb-3">
+            {% if postsImg is not empty %}
+                {% for postImg in postsImg %}
+                            <a title="{{postImg.title|u.truncate(50, '...')}}" href="{{path('visitor.blog.post.show', {'id': postImg.id, 'slug': postImg.slug})}}"><img src="{{ vich_uploader_asset(postImg, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" alt="{{ postImg.title }}" style='max-width: 70px' class="rounded-2 w-100 h-100 "></a>
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>

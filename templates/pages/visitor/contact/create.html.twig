@@ -1,0 +1,86 @@
+{% extends "themes/visitor/base_visitor.html.twig" %}
+
+{% block title %}{% endblock %}
+{% block description %}{% endblock %}
+
+{% block csssheet %}
+<style>
+    body{
+        background-color: #f1e0c5;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+    <div class="bg-primary m-0 p-4">
+        <h1 class="text-center mt-3 text-info">Contactez-moi</h1>
+    </div>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    <div class="d-flex flex-lg-row flex-column my-3 mx-lg-4">
+        <div class="bg-secondary shadow rounded rounded-2 text-center p-4 order-lg-0 order-1">
+            <h1>Envoyer un message</h1>     
+            {{form_start(form)}}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="contact_form_firstName" class="form-label">Prénom <span class="text-danger">*</span></label>
+                        <div class="text-danger">
+                            {{form_errors(form.firstName)}}
+                        </div>
+                        {{form_widget(form.firstName, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="contact_form_lastName" class="form-label">Nom <span class="text-danger">*</span></label>
+                    <span class="text-danger">
+                        {{form_errors(form.lastName)}}
+                    </span>
+                    {{form_widget(form.lastName, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="contact_form_email" class="form-label">Email <span class="text-danger">*</span></label>
+                    <div class="text-danger">
+                        {{form_errors(form.email)}}
+                    </div>
+                    {{form_widget(form.email, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="contact_form_phone" class="form-label">Numéro de téléphone</label>
+                    <div class="text-danger">
+                        {{form_errors(form.phone)}}
+                    </div>
+                        {{form_widget(form.phone, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+                <div class="mb-3">
+                    <label for="contact_form_message">Message <span class="text-danger">*</span></label>
+                    <div class="text-danger">
+                        {{form_errors(form.message)}}
+                    </div>
+                    {{form_widget(form.message, {'attr' : {'class' : 'form-control', 'rows' : 8}})}}
+                </div>
+            </div>
+            <div class="mb-3 d-grid">
+                <input formnovalidate type="submit" value="Envoyer" class="btn btn-primary shadow">
+            </div>
+        </div>
+        {{form_end(form)}}
+        <div class="col-lg-6 mt-5 text-center align-self-center order-lg-1 order-0 pb-3">
+            <h2 class='mb-lg-5'>Mes contactes</h2>
+            <div class="d-flex justify-content-center flex-lg-row flex-column gap-3 ">
+                <h5 class='text-primary mb-3'>{{setting.email}}</h5>
+                <h5 class='text-primary mb-3'>{{setting.phone}}</h5>
+            </div>
+            <h5>Suivez-moi sur les réseaux sociaux</h5>
+            <div class="d-flex justify-content-center gap-3">
+                <h1><a href="{{setting.tiktok}}"><i class="bi bi-tiktok text-dark"></i></a></h1>
+                <h1><a href="{{setting.youtube}}"><i class="bi bi-youtube text-danger"></i></a></h1>
+                <h1 class=""><a href="{{setting.instagram}}"><i class="bi bi-instagram text-dark"></i></a></h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}

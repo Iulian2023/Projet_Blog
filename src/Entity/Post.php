@@ -83,11 +83,19 @@ class Post
     #[ORM\ManyToMany(targetEntity: Countries::class, inversedBy: 'posts')]
     private Collection $country;
 
+    #[ORM\OneToMany(mappedBy: 'post', orphanRemoval:true, targetEntity: Comment::class)]
+    private Collection $comments;
+
+    #[ORM\OneToMany(mappedBy: 'post', orphanRemoval:true, targetEntity: PostLike::class)]
+    private Collection $postLikes;
+
     public function __construct()
     {
         $this->isPublished = false;
         $this->tags = new ArrayCollection();
         $this->country = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->postLikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -294,5 +302,84 @@ class Post
         $this->country->removeElement($country);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PostLike>
+     */
+    public function getPostLikes(): Collection
+    {
+        return $this->postLikes;
+    }
+
+    public function addPostLike(PostLike $postLike): static
+    {
+        if (!$this->postLikes->contains($postLike)) {
+            $this->postLikes->add($postLike);
+            $postLike->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostLike(PostLike $postLike): static
+    {
+        if ($this->postLikes->removeElement($postLike)) {
+            // set the owning side to null (unless already changed)
+            if ($postLike->getPost() === $this) {
+                $postLike->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isLikedBy(User $user) : bool
+    {
+        // Récupérons tous les likes associés à cet article
+        $likes = $this->getPostLikes()->toArray();
+
+        // Parcourons le tableau de likes,
+        foreach ($likes as $like) {
+            // Si l'utilisateur associé à l'un des likes est le même que l'utilisateur connecté
+            if ($like->getUser() == $user) {
+                /*c'est que c'est son like
+                 * Retournos true */
+                return true;
+            }
+        }
+        // Dans le cas contraire, c'est qu'il n'a pas encore liké
+            // Retournons false 
+            return false;
     }
 }

@@ -43,7 +43,7 @@ class Countries
     private ?string $image = null;
 
     #[Assert\Length(
-        max: 300,
+        max: 500,
         maxMessage: 'La description ne doit dépasser {{ limit }} caractéres',
     )]
     #[ORM\Column(type: Types::TEXT, nullable: true)]

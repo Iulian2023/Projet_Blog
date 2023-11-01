@@ -83,9 +83,27 @@
 {% block javascripts %}
     <script>
         $(document).ready(function() {
-            $('#post_form_tags').select2();
+            $('#post_form_tags').select2({
+                maximumSelectionLength: 4,
+                language: {
+                maximumSelected: function (e) {
+                var t = "Vou pouvez selectioner que " + e.maximum + " tags";
+                e.maximum != 1;
+                return t;
+                    }
+                }
+            });
             
-            $('#post_form_country').select2();
+            $('#post_form_country').select2({
+                maximumSelectionLength: 4,
+                language: {
+                maximumSelected: function (e) {
+                var t = "Vou pouvez selectioner que " + e.maximum + " pays";
+                e.maximum != 1 && (t);
+                return t;
+                    }
+                }
+            });
 
             $('#post_form_imageFile_file').on('change', function() {
                 let file = $(this).get(0).files[0];

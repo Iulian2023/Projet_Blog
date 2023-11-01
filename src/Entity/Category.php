@@ -19,16 +19,16 @@ class Category
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank(message: "Le nom est obligatoire.")]
     #[Assert\Length(
         max: 255,
         maxMessage: 'Le nom ne doit pas dépasser {{ limit }} caractéres',
-    )]
+        )]
     #[Assert\Regex(
         pattern: "/^[0-9a-zA-Z\-\_\'\*\"\#\~\²\+\-\ áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$/i",
         match: true,
         message: 'Le nom doit contenir uniquement des lettres, des chiffres le tiret du milieu de l\'undescore.',
-    )]
+        )]
+    #[Assert\NotBlank(message: "Le nom est obligatoire.")]
     #[ORM\Column(length: 255, unique: true)]
     private ?string $name = null;
 
@@ -44,7 +44,7 @@ class Category
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class)]
+    #[ORM\OneToMany(mappedBy: 'category', orphanRemoval:true, targetEntity: Post::class)]
     private Collection $posts;
 
     public function __construct()
@@ -62,7 +62,7 @@ class Category
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
