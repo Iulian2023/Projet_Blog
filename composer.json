@@ -7,6 +7,7 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
@@ -51,8 +52,7 @@
         "twig/intl-extra": "^3.7",
         "twig/string-extra": "^3.7",
         "twig/twig": "^2.12|^3.0",
-        "vich/uploader-bundle": "^2.2",
-        "ext-intl": "*"
+        "vich/uploader-bundle": "^2.2"
     },
     "config": {
         "allow-plugins": {
