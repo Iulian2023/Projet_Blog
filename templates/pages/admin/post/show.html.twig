@@ -4,6 +4,15 @@
 
 {% block description %}Article : {{post.title}}{% endblock %}
 
+{% block css %}
+<style>
+ img {
+    max-width: 100%;
+    height: auto;
+}
+</style>
+{% endblock %}
+
 {% block main %}
     <div class="container mx-auto mt-3 col-lg-6 col">
          {% for flash_error in app.flashes('success') %}

@@ -125,6 +125,17 @@
                     fileReader.readAsDataURL(file);
                 }
             });
+
+            tinymce.init({
+            image_dimensions: false,
+                    image_class_list: [
+                        {title: 'Responsive', value: 'img-responsive'}
+                    ],
+            image_class_list: [
+                {title: 'Responsive', value: 'img-responsive'}
+            ],
+            })
+
         });
     </script>
 {% endblock %}
