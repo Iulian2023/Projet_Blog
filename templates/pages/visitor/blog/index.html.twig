@@ -113,7 +113,7 @@ html, body{
         {% for country in countries %}
         {% if curentPathInfo == path('visitor.blog.posts.filter_by_country', {'slug' : country.slug}) %}
             <div data-aos="zoom-in" data-aos-duration="1000" class="container d-flex flex-lg-row flex-column justify-content-evenly align-items-center pt-3">
-                <img src="{{ vich_uploader_asset(country, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" alt="{{ country.country }}" style='max-width: 400px' class="w-100 h-100 rounded img-thumbnail" >
+                <img src="{{ vich_uploader_asset(country, 'imageFile') }}" alt="{{ country.country }}" style='max-width: 400px' class="w-100 h-100 rounded img-thumbnail" >
                 <div class="col-lg-6">
                     <h5 class='mt-3 display-6 text-center'>
                         {{country.country|country_name('fr')}}
@@ -134,7 +134,7 @@ html, body{
                     <div class="row g-0">
                         <div class="col-lg-4">
                             {% if post.image %}
-                                <img src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" alt="{{ post.title }}" class="w-100 h-100 rounded">
+                                <img src="{{ vich_uploader_asset(post, 'imageFile') }}" style="max-width: 400px" alt="{{ post.title }}" class="w-100 h-100 rounded">
                             {% else %}
                                 <img src="{{asset("images/welcome_page/pas_d_image_disponible.jpg")}}"  class="w-100 h-100 rounded" alt={{post.title }}>
                             {% endif %}

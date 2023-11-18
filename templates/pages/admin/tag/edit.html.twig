@@ -5,9 +5,8 @@
 {% block description %}Admin - Modifer le Tag{% endblock %}
 
 {% block main %}
-    <h1 class="text-center my-3 display-5">Modifer le tag</h1>
-
     <div class="container mt-5">
+    <h1 class="text-center my-3 display-5">Modifer le tag</h1>
         <div class="bg-primary-subtle col-md-6 mx-auto rounded shadow p-5">
             {{form_start(form)}}
                 <div class="mb-3">
@@ -21,6 +20,9 @@
                     <input formnovalidate type="submit" class="btn btn-primary shadow w-100 text-info" value="Modifier">
                 </div>
             {{form_end(form)}}
+        <div class="text-center mt-2">
+            <a href="{{path('admin.tag.index')}}" class='text-primary text-decoration-none'>Retour à la page des tags</a>
+        </div>
         </div>
     </div>
 {% endblock %}

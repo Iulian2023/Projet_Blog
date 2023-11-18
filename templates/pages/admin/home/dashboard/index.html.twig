@@ -36,29 +36,29 @@ html, body{
             {% endfor %}
             <h5 class='mt-5 fs-3 text-primary'>Centre de commande :</h5>
             <div class="row border border-2 border-primary rounded rounded-bottom-0 py-3 border-bottom-0 bg-info">
-            <h5 class="mb-3 text-center mb-3 text-primary fw-bold">Gestion de contenu</h5>  
-                <div class="col-lg-2">
+            <h4 class="mb-3 text-center mb-3 text-primary fw-bold">Gestion de contenu</h4>  
+                <div class="col-lg-2 mb-2 mb-lg-0 text-center">
                     <a href="{{path('admin.category.index')}}" class='text-decoration-none fs-4'><i class="bi bi-bookmark-dash text-secondary fs-4"></i> Catégories</a>
                 </div>
-                <div class="col-lg-2 text-center">
+                <div class="col-lg-2 mb-2 mb-lg-0 text-center">
                     <a href="{{path('admin.post.index')}}" class='text-decoration-none fs-4'><i class="bi bi-file-post text-secondary fs-4"></i> Article</a>
                 </div>
-                <div class="col-lg-2 text-center">
+                <div class="col-lg-2 mb-2 mb-lg-0 text-center">
                     <a href="{{path('admin.country.list')}}" class='text-decoration-none fs-4'><i class="bi bi-globe-europe-africa text-secondary fs-4"></i> Pays</a>
                 </div>
-                <div class="col-lg-2 text-center">
+                <div class="col-lg-2 mb-2 mb-lg-0 text-center">
                     <a href="{{path('admin.tag.index')}}" class='text-decoration-none fs-4'><i class="bi bi-tags text-secondary fs-4"></i> Tags</a>
                 </div>
-                <div class="col-lg-2 text-center">
+                <div class="col-lg-2 mb-2 mb-lg-0 text-center">
                     <a class="text-decoration-none fs-4" href="{{path('admin.setting_index.edit', {'id' : 1})}}"><i class="bi bi-body-text text-secondary fs-4"></i> Parametres d'accueil</a>
                 </div>
-                <div class="col-lg-2 text-center">
+                <div class="col-lg-2 mb-2 mb-lg-0 text-center">
                     <a class="text-decoration-none fs-4"  href="{{path('admin.setting_contact.edit', {'id' : 1})}}"><i class="bi bi-body-text text-secondary fs-4"></i> Parametres de contact</a>
                 </div>
             </div>
             <div class="row py-3 border border-2 border-primary rounded rounded-top-0 border-top-0 bg-info">
                 <div class="col-lg-7">
-                    <h5 class="mb-3 text-center mb-3 text-primary fw-bold">Gestion des utilisateurs</h5>
+                    <h4 class="mb-3 text-center mb-3 text-primary fw-bold">Gestion des utilisateurs</h4>
                     <div class="row">
                         <div class="col-lg-4 text-center">
                             <a href="{{path('admin.user.index')}}" class='text-decoration-none fs-4'><i class="bi bi-people text-secondary fs-4"></i> Utilisateurs</a>   
@@ -74,7 +74,7 @@ html, body{
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <h5 class="mb-3 text-center mb-3 text-primary fw-bold">Autre</h5>
+                    <h4 class="mb-3 text-center mb-3 text-primary fw-bold">Autre</h4>
                     <div class="row">
                         <div class="col-lg-6 text-center">
                             <a href="{{path('admin.statistics.index')}}" class='text-decoration-none fs-4'><i class="bi bi-graph-up-arrow text-secondary fs-4"></i> Statistiques</a>

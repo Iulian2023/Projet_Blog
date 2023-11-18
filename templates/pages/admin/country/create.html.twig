@@ -11,7 +11,7 @@
 {% block main %}
     <h1 class='text-center my-3'>Ajouter un Pays</h1>
     {{form_start(form)}}
-    <div class="container-lg col-lg-6">
+    <div class="container-lg col-lg-10">
         <div class="mb-3">
             <label for="countries_form_country" class="form-label">Pays</label>
             <div class="text-danger">
@@ -27,17 +27,13 @@
                     </div>
                 {{form_widget(form.imageFile, {'attr' : {'class' : 'form-control '}})}}
             </div>
-            <div class="col-lg-6 text-center">
-                <div class="preview-image-title ">
-
+                <div class="col-lg-6 d-flex justify-content-center align-items-center flex-column" >
+                    <div class="preview-image-title"></div>
+                    <div class="preview-image-content text-center"></div>
                 </div>
-                    <div class="preview-image-content">
-
-                </div>
-            </div>
         </div>
         <div class="mb-3">
-            <label for="post_form_description" class="form-label">Contenu</label>
+            <label for="countries_form_description" class="form-label">Contenu</label>
                 <div class="text-danger">
                     {{form_errors(form.description)}}
                 </div>

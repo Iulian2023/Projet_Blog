@@ -6,8 +6,8 @@
 {% block main %}
         <h1 class="text-center display-5 my-3 text-primary">Modifier le profil</h1>
 
-        <div class="container mt-3">
-            <div class="col-lg-6 bg-primary-subtle rounded p-5 shadow-lg mx-auto">
+        <div class="container-fluid mt-3">
+            <div class="col-lg-6 bg-primary-subtle rounded p-lg-5 p-2 shadow-lg mx-auto">
                 {{form_start(form)}}
                     <div class="mb-3">
                         <label for="edit_profile_form_firstName" class='form-label'>Prénom</label>
@@ -31,7 +31,7 @@
                         {{form_widget(form.email, {'attr' : {'class' : 'form-control'}})}}
                     </div>
                     <div class="mt-5 d-grid">
-                        <input type="submit" value="modifier" class="btn btn-primary shadow">
+                        <input type="submit" value="modifier" class="btn btn-primary shadow text-info">
                     </div>
                 {{form_end(form)}}
             </div>

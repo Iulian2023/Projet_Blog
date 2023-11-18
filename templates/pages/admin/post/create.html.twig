@@ -25,7 +25,7 @@
 
 <h1 class='text-center my-3'>Nouvel article</h1>
 
-<div class="container-lg col-lg-6">
+<div class="container-lg col-lg-8">
     {{form_start(form)}}
         <div class="mb-3">
             <label for="post_form_title" class="form-label">Titre d'article</label>
@@ -76,6 +76,9 @@
             <input formnovalidate type="submit" value="Sauvegarder" class="btn btn-primary">
         </div>
     {{form_end(form)}}
+</div>
+<div class="text-center mt-2">
+    <a href="{{path('admin.post.index')}}" class='text-primary text-decoration-none'>Retour à la page des articles</a>
 </div>
 
 {% endblock %}

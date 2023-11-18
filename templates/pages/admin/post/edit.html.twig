@@ -55,7 +55,7 @@
                         <div class="col-md-4 text-center d-flex flex-column justify-content-center align-items-center">
                         {% if post.image %}
                             <label for="">L'image actuelle</label>
-                            <img src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('admin_post_thumbnail') }}" alt="{{ post.title }}">
+                            <img src="{{ vich_uploader_asset(post, 'imageFile') }}" style="max-width: 200px" class="img-fluid" alt="{{ post.title }}">
                         {% else %}
                             <p class="text-center pt-lg-4">Acune image existanté</p>
                         {% endif %}
@@ -88,6 +88,9 @@
                     </div>
                 {{form_end(form)}}
             </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{path('admin.post.index')}}" class='text-primary text-decoration-none'>Retour à la page des articles</a>
         </div>
     </div>
 {% endblock %}

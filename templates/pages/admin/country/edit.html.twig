@@ -23,56 +23,61 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center my-3 display-5">Modifier l'article</h1>
+    <h1 class="text-center my-3 display-5">Modifier un pays</h1>
 
+{{form_start(form)}}
     <div class="container bg-primary-subtle rounded shadow py-5">
-        <div class="row">
-            <div class="col-md-10 mx-auto">
-                <h1 class='text-center my-3'>Ajouter un pays</h1>
-    {{form_start(form)}}
-    <div class="container-lg col-lg-8">
-        <div class="mb-3">
-            <label for="countries_form_country" class="form-label">Pays</label>
-            <div class="text-danger">
-                {{form_errors(form.country)}}
-            </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10 mx-auto mb-3">
+                <label for="countries_form_country" class="form-label">Pays</label>
+                <div class="text-danger">
+                    {{form_errors(form.country)}}
+                </div>
             {{form_widget(form.country, {'attr' : {'class' : 'form-select'}})}}
-        </div>
-        <div class="row">
-            <div class="col-md-4 text-center d-flex flex-column justify-content-center align-items-center">
-                {% if country.image %}
-                <label for="{{ country.country }}">L'image actuelle</label>
-                <img src="{{ vich_uploader_asset(country, 'imageFile') | imagine_filter('admin_post_thumbnail') }}" alt="{{ country.country }} " class="img-fluid">
-                {% else %}
-                    <p class="text-center pt-lg-4">Acune image existanté</p>
-                {% endif %}
             </div>
-            <div class="col-md-4">
-                <div class="mb-3">
-                    <label for="countries_form_imageFile_file" class="form-label">Image</label>
-                    <div class="text-danger">
-                        {{form_errors(form.imageFile)}}
-                    </div>
+            <div class="row mb-3">
+                <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
+                    {% if country.image %}
+                        <div class="d-flex flex-column">
+                            <label for="{{ country.country }}" style="margin-bottom: 16px">L'image actuelle</label>
+                            <img src="{{ vich_uploader_asset(country, 'imageFile') }}" style="max-width: 150px" alt="{{ country.country }} " class="img-fluid">
+                        </div>
+                    {% else %}
+                        <p class="text-center pt-lg-4">Acune image existanté</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="countries_form_imageFile_file" class="form-label">Image</label>
+                        <div class="text-danger">
+                            {{form_errors(form.imageFile)}}
+                        </div>
                         {{form_widget(form.imageFile, {'attr' : {'class' : 'form-control mt-1 mb-3'}})}}
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 d-flex justify-content-center align-items-center flex-column" >
                     <div class="preview-image-title"></div>
-                    <div class="preview-image-content"></div>
+                    <div class="preview-image-content" style="max-width: 150px"></div>
                 </div>
             </div>
-        <div class="mb-3">
-            <label for="post_form_description" class="form-label">Contenu</label>
-                <div class="text-danger">
-                    {{form_errors(form.description)}}
+            <div class="col-md-10 mx-auto">
+                <div class="mb-3">
+                    <label for="countries_form_description" class="form-label">Contenu</label>
+                    <div class="text-danger">
+                        {{form_errors(form.description)}}
+                    </div>
+                    {{form_widget(form.description, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
                 </div>
-                {{form_widget(form.description, {'attr' : {'class' : 'form-control', 'rows' : 10}})}}
-        </div>
-        <div class="d-grid">
-            <input formnovalidate type="submit" value="Sauvegarder" class="btn btn-primary">
+            </div>
+            <div class="d-grid col-md-10 mx-auto">
+                <input formnovalidate type="submit" value="Sauvegarder" class="btn btn-primary">
+                <div class="text-center mt-3">
+                    <a href="{{path('admin.post.index')}}" class='text-primary text-decoration-none'>Retour à la page des articles</a>
+                </div>
+            </div>
+            {{form_end(form)}}
         </div>
     </div>
-    {{form_end(form)}}
 {% endblock %}
 
 {% block javascripts %}

@@ -51,7 +51,7 @@
                         <div class="col-lg-4">
                             <div class="card bg-secondary" data-aos="zoom" data-aos-duration="2000" style='max-width: 780px'>
                                 {% if arcticle.image %}
-                                    <img src="{{ vich_uploader_asset(arcticle, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" style='max-height: 620px' alt="{{ arcticle.title }}" class="w-100 h-100 rounded rounded-bottom-0">
+                                    <img src="{{ vich_uploader_asset(arcticle, 'imageFile') }}" style='max-height: 620px' alt="{{ arcticle.title }}" class="w-100 h-100 rounded rounded-bottom-0">
                                 {% else %}
                                     <img src="{{asset("images/welcome_page/pas_d_image_disponible.jpg")}}" class="w-100 h-100 rounded" style='max-height: 620px' alt={{arcticle.title }}>
                                 {% endif %}

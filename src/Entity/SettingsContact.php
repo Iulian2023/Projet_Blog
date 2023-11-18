@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\SettingsContactRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,24 +15,31 @@ class SettingsContact
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: "L'email est obligatoire.")]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[Assert\NotBlank(message: "Le numéro de téléphone est obligatoire.")]
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
+    #[Assert\NotBlank(message: "Le lien vers instagram obligatoire.")]
     #[ORM\Column(length: 255)]
     private ?string $instagram = null;
 
+    #[Assert\NotBlank(message: "Le lien vers tiktok obligatoire.")]
     #[ORM\Column(length: 255)]
     private ?string $tiktok = null;
 
+    #[Assert\NotBlank(message: "Le lien vers youtube obligatoire.")]
     #[ORM\Column(length: 255)]
     private ?string $youtube = null;
 
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
