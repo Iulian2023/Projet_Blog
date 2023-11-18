@@ -6,7 +6,7 @@
 
 
 {% block main %}
-        <div class="container mx-auto mt-3 col-6">
+        <div class="container mx-auto mt-3 col-lg-6 col">
             {% for flash_error in app.flashes('success') %}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ flash_error }}
@@ -39,11 +39,11 @@
                             <td>{{comment.user.firstName}} {{comment.user.lastName}}</td>
                             <td>{{comment.user.email}}
                             <td>{{comment.post.title}}</td>
-                            <td class="d-flex justify-content-center align-items-center flex-column">
+                            <td class="justify-content-center align-items-center flex-column">
                                 {% if comment.isActivated %}
-                                    <span>OUI OUI</span>
+                                    <span>Oui</span>
                                 {% else %}
-                                    <span>Nah</span>
+                                    <span>Non</span>
                                 {% endif %}
                                 <form action="{{path('admin.comment.activate', {'id' : comment.id})}}" method='POST'>
                                 <div class="form-check form-switch">

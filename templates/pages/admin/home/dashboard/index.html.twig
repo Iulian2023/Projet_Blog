@@ -16,14 +16,6 @@ html, body{
 
 {% block main %}
 
-    <div class="container mx-auto mt-3 col-6">
-         {% for flash_error in app.flashes('success') %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ flash_error }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}  
-    </div>
     <div class="container-fluid" style="height: 100%">
         <h1 class="text-center my-3 display-5 text-primary">Bienvenue dans l'espace Admin <span class="text-secondary"> {{app.user.firstName}} {{app.user.lastName}}</span></h1>
 

@@ -42,6 +42,9 @@
         <div class="d-grid">
             <input formnovalidate type="submit" value="Sauvegarder" class="btn btn-primary">
         </div>
+        <div class="text-center my-3">
+            <a href="{{path('admin.post.index')}}" class='text-primary text-decoration-none'>Retour à la page des articles</a>
+        </div>
     </div>
     {{form_end(form)}}
 {% endblock %}

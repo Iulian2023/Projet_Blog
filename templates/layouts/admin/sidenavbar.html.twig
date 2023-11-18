@@ -24,7 +24,7 @@
                 </a>
             </li>
             <li class='nav-item fs-5'>
-                <a href="{{path('admin.tag.index')}}" class='text-decoration-none'>
+                <a href="{{path('admin.tag.index')}}" class='text-decoration-none {{curentPathInfo == path("admin.tag.index") ? 'sidevar-item-active' : 'text-primary'}}' {{curentPathInfo == path('admin.tag.index') ? "aria-current='page'"  : ''}}>
                     <i class="bi bi-tags text-secondary fs-4"></i> Tags
                 </a>
             </li>

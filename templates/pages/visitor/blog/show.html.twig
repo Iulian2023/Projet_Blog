@@ -55,8 +55,8 @@
                                 {% else %}
                                     <img src="{{asset("images/welcome_page/pas_d_image_disponible.jpg")}}" class="w-100 h-100 rounded" style='max-height: 620px' alt={{arcticle.title }}>
                                 {% endif %}
-                                <div class="card-title text-center mt-3 text-dark display-6">
-                                    <h4>{{arcticle.title}}</h4>
+                                <div class="card-title text-center mt-3 text-dark">
+                                    <b>{{arcticle.title|striptags|u.truncate(50, '...')|raw}}</b>
                                 </div>
                                 <div class="card-body text-center text-dark">
                                     <p class="card-text">{{arcticle.content|striptags|u.truncate(200, '...')|raw}}</p>
@@ -76,7 +76,7 @@
 
                 {% if app.user %}
                 <div class="d-flex justify-content-center bg-info">
-                    <div class="my-5 col-lg-4" id="create-comment-box">
+                    <div class="my-5 col-lg-8 col mx-1" id="create-comment-box">
                         {{form_start(form, {'action': path('visitor.blog.post.show', {'id':post.id, 'slug':post.slug})~"#create-comment-box" } ) }}
                             <div class="mb-3">
                                 <div class="text-danger">
@@ -84,7 +84,7 @@
                                 </div>
                                 {{form_widget(form.content, {'attr' : {'class' : 'form-control', 'placeholder' : 'Laissez un commentaire', 'rows': 8}})}}
                             </div>
-                            <div class="d-grid col-6 mx-auto">
+                            <div class="d-grid col-lg-6 mx-auto">
                                 <input formnovalidate type="submit" value="Commentez" class="btn btn-primary text-info">
                             </div>
                         {{form_end(form)}}

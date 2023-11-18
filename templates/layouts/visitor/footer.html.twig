@@ -37,7 +37,7 @@
             <div class="d-flex flex-wrap gap-2 justify-content-center mb-3">
             {% if postsImg is not empty %}
                 {% for postImg in postsImg %}
-                            <a title="{{postImg.title|u.truncate(50, '...')}}" href="{{path('visitor.blog.post.show', {'id': postImg.id, 'slug': postImg.slug})}}"><img src="{{ vich_uploader_asset(postImg, 'imageFile') }}" alt="{{ postImg.title }}" style='max-width: 70px' class="rounded-2 w-100 h-100 "></a>
+                            <a title="{{postImg.title|u.truncate(50, '...')}}" href="{{path('visitor.blog.post.show', {'id': postImg.id, 'slug': postImg.slug})}}"><img src="{{ vich_uploader_asset(postImg, 'imageFile') }}" alt="{{ postImg.title }}" style='max-width: 80px; max-height: 80px;' class="rounded-2 w-100 h-100 "></a>
                 {% endfor %}
             {% endif %}
             </div>
