@@ -42,7 +42,7 @@
                             <div class="col-lg-4" >
                                 <div class="card bg-secondary" data-aos="zoom" data-aos-duration="2000" style='max-width: 780px'>
                                     {% if post.image %}
-                                        <img src="{{ vich_uploader_asset(post, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" alt="{{ post.title }}" style='max-height: 490px' class="rounded-2 rounded-bottom-0 w-100 h-100 ">
+                                        <img src="{{ vich_uploader_asset(post, 'imageFile')}}" alt="{{ post.title }}" style='max-height: 490px' class="rounded-2 rounded-bottom-0 w-100 h-100 ">
                                     {% else %}
                                         <img src="{{asset("images/welcome_page/pas_d_image_disponible.jpg")}}" class="w-100 h-100 rounded" alt={{post.title }}>
                                     {% endif %}
@@ -99,7 +99,7 @@
                     <div class="col-lg-4" >
                         <div class="card bg-primary" data-aos="zoom" data-aos-duration="2000" style='max-width: 780px'>
                             {% if country.image %}
-                                <img src="{{ vich_uploader_asset(country, 'imageFile') | imagine_filter('visitor_blog_thumbnail') }}" style='max-height: 620px' alt="{{country.country}}" class="rounded-2 rounded-bottom-0 w-100 h-100 ">
+                                <img src="{{ vich_uploader_asset(country, 'imageFile')}}" style='max-height: 620px' alt="{{country.country}}" class="rounded-2 rounded-bottom-0 w-100 h-100 ">
                             {% else %}
                                 <img src="{{asset("images/visitor/blog/pas_d_image_disponible.jpg")}}"  class="w-100 h-100 rounded" style='max-height: 620px' alt={{country.country }}>
                             {% endif %}
