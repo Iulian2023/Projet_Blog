@@ -1,5 +1,8 @@
 {% extends "themes/user/base_user.html.twig" %}
 
+{% block title %}Mon Profil : Utilisateur {{app.user.firstName}} {{app.user.lastName}}{% endblock %}
+{% block description %}Mon Profil{% endblock %}
+
 {% block main %}
     <div class="container mx-auto mt-3 col-lg-6 col">
          {% for flash_error in app.flashes('success') %}
