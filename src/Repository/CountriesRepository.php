@@ -46,7 +46,6 @@ class CountriesRepository extends ServiceEntityRepository
             ->setMaxResults(3);
 
         return $qb->getQuery()->getResult();
-
     }
 
 //    /**

@@ -2,7 +2,23 @@
 
 {% extends "themes/visitor/base_visitor.html.twig" %}
 
-{% block title %}Mes Blogs{% endblock %}
+{% block title %}Mes Blogs
+    {% for tag in tags %}
+        {% if curentPathInfo == path('visitor.blog.posts.filter_by_tag', {'slug' : tag.slug}) %}
+            tag : {{tag.slug}}
+        {% endif %}
+    {% endfor %}
+    {% for country in countries %}
+        {% if curentPathInfo == path('visitor.blog.posts.filter_by_country', {'slug' : country.slug}) %}
+            pays : {{country.country|country_name('fr')}}
+        {% endif %}
+    {% endfor %}
+    {% for category in categories %}
+        {% if curentPathInfo == path('visitor.blog.posts.filter_by_category', {'slug' : category.slug}) %}
+            catégorie : {{category.name}}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
 
 {% block description %}Mes Blogs{% endblock %}
 
@@ -37,7 +53,7 @@ html, body{
                     {% endfor %}
                     {% for category in categories %}
                         {% if curentPathInfo == path('visitor.blog.posts.filter_by_category', {'slug' : category.slug}) %}
-                            catgeorie : {{category.name}}
+                            catégorie : {{category.name}}
                         {% endif %}
                     {% endfor %}
                 </h5></span>
@@ -106,7 +122,7 @@ html, body{
                         {% endif %}
                     {% endfor %}
             </div>
-    </div>
+        </div>
         
 
 </header>
