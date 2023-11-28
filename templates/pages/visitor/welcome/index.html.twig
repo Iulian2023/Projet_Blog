@@ -24,10 +24,8 @@
             {% endfor %}
         </div>
         <div class="col-lg-6 order-0 order-lg-1">
-            <div data-aos="flip-left" 
-                 data-aos-easing="ease-out-cubic"
-                 data-aos-duration="1000">
-                <img src="{{asset('images/welcome_page/hero_image.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="image de présentation" title="image de présentation">
+            <div>
+                <img src="{{asset('images/welcome_page/world_travel.png')}}" class='img-fluid rounded' style='max-height: 620px' alt="image de présentation" title="image de présentation">
             </div>
         </div>
     </div>
@@ -70,8 +68,8 @@
     {% for setting in settings %}
     <div class="container">
         <div class="row mt-5" data-aos="fade-up" data-aos-duration="2000">
-            <div class="col-lg-6">
-                <img src="{{asset('images/welcome_page/about_me_1.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="image blog qui suis je 1" title="image blog qui suis je 1">
+            <div class="col-lg-6 text-center">
+                <img src="{{asset('images/welcome_page/travel_about_me.png')}}" class='img-fluid rounded' style='max-height: 420px' alt="image blog qui suis je 1" title="image blog qui suis je 1">
             </div>
             <div class="col-lg-6 align-self-center my-3">
                 <p class='text-secondary text-lg-start text-center'>{{setting.firstTextAboutMe}}</p>
@@ -81,8 +79,8 @@
             <div class="col-lg-6 align-self-center order-1 order-lg-0">
             <p class='text-info text-lg-start text-center'>{{setting.secondTextAboutMe}}</p>
             </div>
-            <div class="col-lg-6 order-0 order-lg-1 my-3">
-                <img src="{{asset('images/welcome_page/about_me_2.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' title="image blog qui suis je 2" alt="image blog qui suis je 2">
+            <div class="col-lg-6 order-0 order-lg-1 my-3 text-center">
+                <img src="{{asset('images/welcome_page/blog_about_me.png')}}" class='img-fluid rounded' style='max-height: 420px' title="image blog qui suis je 2" alt="image blog qui suis je 2">
             </div>
         </div>
     </div>
