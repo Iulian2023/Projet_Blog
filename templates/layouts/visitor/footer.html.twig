@@ -2,7 +2,7 @@
     <div class="justify-content-evenly">
     <div class="row">
         <div class="col-lg text-center">
-            <img class='img-fluid logo-navbar-size' style="max-width: 80px" src="{{asset('images/logo/logo-minimize.png')}}" alt="w-100 h-100 img-fluid">
+            <img class='img-fluid logo-navbar-size' title="logo" style="max-width: 80px" src="{{asset('images/logo/logo-minimize.png')}}" alt="w-100 h-100 img-fluid">
             <span class='text-secondary'>&copy;</span>
         </div>
 
@@ -10,26 +10,26 @@
             <h3 class="text-center text-secondary">Navigation</h3>
             <div class="row">
                 <div class="col-6">
-            <h5><a class="text-decoration-none text-info" href="{{path('visitor.welcome.index')}}">Accueil</a></h5>
-            <h5><a class="text-decoration-none text-info" href="{{path('visitor.blog.index')}}">Mes blogs</a></h5>
+            <h5><a class="text-decoration-none text-info" title="Accueil" href="{{path('visitor.welcome.index')}}">Accueil</a></h5>
+            <h5><a class="text-decoration-none text-info" title="Mes blogs" href="{{path('visitor.blog.index')}}">Mes blogs</a></h5>
                 </div>
                 <div class="col-6">
-            <h5><a class="text-decoration-none text-info" href="{{path('visitor.welcome.index')}}#about-me">Qui suis-je</a></h5>
-            <h5><a class="text-decoration-none text-info" href="{{path('visitor.contact.create')}}">Contact</a></h5>
+            <h5><a class="text-decoration-none text-info" title="Qui suis-je" href="{{path('visitor.welcome.index')}}#about-me">Qui suis-je</a></h5>
+            <h5><a class="text-decoration-none text-info" title="Contact" href="{{path('visitor.contact.create')}}">Contact</a></h5>
                 </div>
             </div>
         </div>
         <div class="col-lg mt-3 text-center">
             <h3 class="text-center text-secondary">Voir</h3>
-            <h5><a class="text-decoration-none text-info" href="{{path('visitor.welcome.index')}}#latest-posts">Les dérnier articles</a></h5>
-            <h5><a class="text-decoration-none text-info" href="{{path('visitor.welcome.index')}}#latest-destination">Les dérnier destination</a></h5>
+            <h5><a class="text-decoration-none text-info" title="Les dérnier articles" href="{{path('visitor.welcome.index')}}#latest-posts">Les dérnier articles</a></h5>
+            <h5><a class="text-decoration-none text-info" title="Les dérnier destination" href="{{path('visitor.welcome.index')}}#latest-destination">Les dérnier destination</a></h5>
         </div>
         <div class="col-lg mt-3 text-center">
             <h3 class="text-center text-secondary">Suivez-moi sur</h3>
             <div class="d-flex justify-content-evenly">
-                <a title='tiktok' class="text-decoration-none text-info fs-1" href="{{setting.tiktok}}"><i class="bi bi-tiktok text-info"></i></a>
-                <a title='youtube' class="text-decoration-none text-info fs-1" href="{{setting.youtube}}"><i class="bi bi-youtube text-info"></i></a>
-                <a title='instagram' class="text-decoration-none text-info fs-1" href="{{setting.instagram}}"><i class="bi bi-instagram text-info"></i></a>
+                <a title='tiktok' class="text-decoration-none text-info fs-1" title="tiktok link" href="{{setting.tiktok}}"><i class="bi bi-tiktok text-info"></i></a>
+                <a title='youtube' class="text-decoration-none text-info fs-1" title="youtube link" href="{{setting.youtube}}"><i class="bi bi-youtube text-info"></i></a>
+                <a title='instagram' class="text-decoration-none text-info fs-1" title="instagram link" href="{{setting.instagram}}"><i class="bi bi-instagram text-info"></i></a>
             </div>
         </div>
         <div class="col-lg mt-3 text-center">
@@ -37,7 +37,7 @@
             <div class="d-flex flex-wrap gap-2 justify-content-center mb-3">
             {% if postsImg is not empty %}
                     {% for postImg in postsImg %}
-                            <a title="{{postImg.title|u.truncate(50, '...')}}" href="{{path('visitor.blog.post.show', {'id': postImg.id, 'slug': postImg.slug})}}"><img src="{{ vich_uploader_asset(postImg, 'imageFile') }}" alt="{{ postImg.title }}" style='max-width: 80px; max-height: 80px;' class="rounded-2 w-100 h-100 "></a>
+                            <a title="{{postImg.title|u.truncate(50, '...')}}" href="{{path('visitor.blog.post.show', {'id': postImg.id, 'slug': postImg.slug})}}"><img src="{{ vich_uploader_asset(postImg, 'imageFile') }}" title="{{postImg.title}}" alt="{{ postImg.title }}" style='max-width: 80px; max-height: 80px;' class="rounded-2 w-100 h-100 "></a>
                 {% endfor %}
             {% endif %}
             </div>
