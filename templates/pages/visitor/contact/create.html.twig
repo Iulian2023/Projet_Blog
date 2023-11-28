@@ -1,7 +1,7 @@
 {% extends "themes/visitor/base_visitor.html.twig" %}
 
 {% block title %}Contactez-moi{% endblock %}
-{% block description %}Contactez-moi{% endblock %}
+{% block description %}Contactez-moi : vous pouvez me contacter via les réseaux sociaux, par e-mail ou en m'écrivant directement un message.{% endblock %}
 
 {% block csssheet %}
 <style>
@@ -23,7 +23,7 @@
     {% endfor %}
     <div class="d-flex flex-lg-row flex-column my-3 mx-lg-4">
         <div class="bg-secondary shadow rounded rounded-2 text-center p-4 order-lg-0 order-1">
-            <h1>Envoyer un message</h1>     
+            <h2>Envoyer un message</h2>     
             {{form_start(form)}}
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -79,9 +79,9 @@
             </div>
             <h5>Suivez-moi sur les réseaux sociaux</h5>
             <div class="d-flex justify-content-center gap-3">
-                <h1><a href="{{setting.tiktok}}"><i class="bi bi-tiktok text-dark"></i></a></h1>
-                <h1><a href="{{setting.youtube}}"><i class="bi bi-youtube text-danger"></i></a></h1>
-                <h1><a href="{{setting.instagram}}"><i class="bi bi-instagram text-dark"></i></a></h1>
+                <a href="{{setting.tiktok}}"><i class="bi bi-tiktok text-dark fs-1"></i></a>
+                <a href="{{setting.youtube}}"><i class="bi bi-youtube text-danger fs-1"></i></a>
+                <a href="{{setting.instagram}}"><i class="bi bi-instagram text-dark fs-1"></i></a>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
 
 {% extends "themes/visitor/base_visitor.html.twig" %}
 
-{% block title %}Mes Blogs
+{% block title %}Blogs
     {% for tag in tags %}
         {% if curentPathInfo == path('visitor.blog.posts.filter_by_tag', {'slug' : tag.slug}) %}
             tag : {{tag.slug}}
@@ -20,7 +20,7 @@
     {% endfor %}
 {% endblock %}
 
-{% block description %}Mes Blogs{% endblock %}
+{% block description %}Mes Blogs : Découvrez un monde captivant à travers mes blogs où je partage mes pensées, expériences et connaissances.{% endblock %}
 
 
 {% block csssheet %}
@@ -38,7 +38,7 @@ html, body{
 
 {% block main %}
 <header class='=d-flex bg-primary shadow'>
-    <h3 class='text-center display-5 pt-3 text-info'>Mes Blogs</h3>
+    <h1 class='text-center display-5 pt-3 text-info'>Mes Blogs</h1>
             <div class="container pt-3  mb-4">
                 <span class='text-center'><h5 class="text-info ">Filter par 
                     {% for tag in tags %}
