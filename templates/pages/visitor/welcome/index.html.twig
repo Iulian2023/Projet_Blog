@@ -7,7 +7,7 @@
 {% block main %}
     <div class="bg-secondary py-3">
     <header class='container hero-image'>
-    <h1 class='text-center pt-3 display-5 text-primary' data-aos="fade-up" data-aos-duration="2000">Bienvenue sur mon blog de voyage</h1>
+    <h1 class='text-center pt-3 display-5 text-primary'>Bienvenue sur mon blog de voyage</h1>
     <div class="container mx-auto mt-3 col-lg-6 col">
          {% for flash_error in app.flashes('success') %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -19,15 +19,15 @@
     <div class="row text-center mt-5">
         <div class="col-lg-6 d-flex justify-content-center align-items-center flex-column order-1 order-lg-0">
             {% for setting in settings %}
-            <h5 class='fs-3 mt-5 mt-lg-0 ' data-aos="fade-right" data-aos-duration="1000">{{setting.titleHeader}}</h5>
-            <p class='mt-3 fs-5 ' data-aos="fade-right" data-aos-duration="1000">{{setting.textHeader}}</p>
+            <h5 class='fs-3 mt-5 mt-lg-0 '>{{setting.titleHeader}}</h5>
+            <p class='mt-3 fs-5 '>{{setting.textHeader}}</p>
             {% endfor %}
         </div>
         <div class="col-lg-6 order-0 order-lg-1">
             <div data-aos="flip-left" 
                  data-aos-easing="ease-out-cubic"
                  data-aos-duration="1000">
-                <img src="{{asset('images/welcome_page/hero_image.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="image de présentation">
+                <img src="{{asset('images/welcome_page/hero_image.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="image de présentation" title="image de présentation">
             </div>
         </div>
     </div>
@@ -42,9 +42,9 @@
         <div class="col-lg-4" >
             <div class="card bg-secondary" data-aos="zoom" data-aos-duration="2000" style='max-width: 780px'>
                 {% if post.image %}
-                <img src="{{ vich_uploader_asset(post, 'imageFile')}}" alt="{{ post.title }}" style='max-height: 490px' class="rounded-2 rounded-bottom-0 w-100 h-100 ">
+                <img src="{{ vich_uploader_asset(post, 'imageFile')}}" alt="{{ post.title }}" style='max-height: 490px' class="rounded-2 rounded-bottom-0 w-100 h-100 " title="{{post.title}}">
                 {% else %}
-                <img src="{{asset("images/welcome_page/pas_d_image_disponible.jpg")}}" class="w-100 h-100 rounded" alt={{post.title }}>
+                <img title="{{post.title}}" src="{{asset("images/welcome_page/pas_d_image_disponible.jpg")}}" class="w-100 h-100 rounded" alt={{post.title }}>
                 {% endif %}
                 <div class="card-title text-center mt-3">
                     {{post.title|striptags|u.truncate(50, '...')|raw}}
@@ -71,7 +71,7 @@
     <div class="container">
         <div class="row mt-5" data-aos="fade-up" data-aos-duration="2000">
             <div class="col-lg-6">
-                <img src="{{asset('images/welcome_page/about_me_1.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="image blog qui suis je 1">
+                <img src="{{asset('images/welcome_page/about_me_1.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="image blog qui suis je 1" title="image blog qui suis je 1">
             </div>
             <div class="col-lg-6 align-self-center my-3">
                 <p class='text-secondary text-lg-start text-center'>{{setting.firstTextAboutMe}}</p>
@@ -82,7 +82,7 @@
             <p class='text-info text-lg-start text-center'>{{setting.secondTextAboutMe}}</p>
             </div>
             <div class="col-lg-6 order-0 order-lg-1 my-3">
-                <img src="{{asset('images/welcome_page/about_me_2.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' alt="image blog qui suis je 2">
+                <img src="{{asset('images/welcome_page/about_me_2.jpg')}}" class='img-fluid rounded shadow-lg' style='max-height: 620px' title="image blog qui suis je 2" alt="image blog qui suis je 2">
             </div>
         </div>
     </div>
@@ -97,9 +97,9 @@
                     <div class="col-lg-4" >
                         <div class="card bg-primary" data-aos="zoom" data-aos-duration="2000" style='max-width: 780px'>
                             {% if country.image %}
-                                <img src="{{ vich_uploader_asset(country, 'imageFile')}}" style='max-height: 620px' alt="{{country.country}}" class="rounded-2 rounded-bottom-0 w-100 h-100 ">
+                                <img src="{{ vich_uploader_asset(country, 'imageFile')}}" style='max-height: 620px' alt="{{country.country}}" title="{{country.country}}" class="rounded-2 rounded-bottom-0 w-100 h-100 ">
                             {% else %}
-                                <img src="{{asset("images/visitor/blog/pas_d_image_disponible.jpg")}}"  class="w-100 h-100 rounded" style='max-height: 620px' alt={{country.country }}>
+                                <img src="{{asset("images/visitor/blog/pas_d_image_disponible.jpg")}}"  class="w-100 h-100 rounded" style='max-height: 620px' alt={{country.country }} title="{{country.country}}">
                             {% endif %}
                             <div class="card-title text-center mt-3 text-info display-6">
                                 {{country.country|country_name('fr')|striptags|u.truncate(25, '...')|raw}}
