@@ -33,7 +33,7 @@ class UserFixtures extends Fixture
 
         $user->setFirstName('Jules');
         $user->setLastName('Rousseau');
-        $user->setEmail('jules.rousseau@jusquauboutdumonde.com');
+        $user->setEmail('jules.rousseau@contact.com');
         $user->setRoles(["ROLE_SUPER_ADMIN", "ROLE_ADMIN", "ROLE_USER"]);
         $user->setIsVerified(true);
         $user->setPassword($passwordHased);

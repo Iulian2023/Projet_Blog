@@ -12,8 +12,10 @@ use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[Vich\Uploadable]
+#[UniqueEntity(fields: ['country'], message: "Le pays existe déjà.")]
 #[ORM\Entity(repositoryClass: CountriesRepository::class)]
 class Countries
 {
@@ -27,7 +29,7 @@ class Countries
     private ?string $country = null;
 
     #[Gedmo\Slug(fields: ['country'])]
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
 
     #[Assert\File(
@@ -76,7 +78,7 @@ class Countries
         return $this->country;
     }
 
-    public function setCountry(string $country): static
+    public function setCountry(?string $country): static
     {
         $this->country = $country;
 
@@ -161,7 +163,7 @@ class Countries
         return $this->slug;
     }
 
-    public function setSlug(string $slug): static
+    public function setSlug(?string $slug): static
     {
         $this->slug = $slug;
 
